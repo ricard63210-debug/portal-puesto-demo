@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="El Rincón de Don Lupe — Authentic street tacos, burritos, quesadillas & antojitos at Mercado Central, Sacramento. Open Tue–Sun." />
+  <meta name="theme-color" content="#FF6B35" />
+  <title>El Rincón de Don Lupe · Street Food Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET & TOKENS ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --fire: #FF6B35;
+      --gold: #FFD166;
+      --ink:  #0F0F0F;
+      --smoke: #1A1A1A;
+      --ash:  #2A2A2A;
+      --white: #F5F5F5;
+      --muted: #888888;
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body:    'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── DIVIDER ────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: 0 20px;
+    }
+
+    /* ─── SECTION LABEL ──────────────────────────────────── */
+    .section-label {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--fire);
+      letter-spacing: 0.2em;
+      margin-bottom: 14px;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       1. MARQUEE BAR
+    ═══════════════════════════════════════════════════════ */
+    .marquee-bar {
+      background: var(--fire);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 8px 0;
+    }
+
+    .marquee-track {
+      display: inline-block;
+      animation: marquee-scroll 18s linear infinite;
+    }
+
+    .marquee-track span {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      color: var(--ink);
+      padding-right: 60px;
+    }
+
+    @keyframes marquee-scroll {
+      from { transform: translateX(100vw); }
+      to   { transform: translateX(-100%); }
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       2. HERO
+    ═══════════════════════════════════════════════════════ */
+    .hero {
+      background: var(--smoke);
+      border-bottom: 3px solid var(--fire);
+      padding: 48px 20px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 520px;
+      height: 320px;
+      background: radial-gradient(ellipse at center, rgba(255,107,53,0.18) 0%, transparent 72%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--fire);
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border-radius: 2px;
+      padding: 3px 10px;
+      margin-bottom: 18px;
+    }
+
+    .hero-emoji {
+      font-size: 52px;
+      display: block;
+      filter: drop-shadow(0 0 18px rgba(255,107,53,0.6));
+      margin-bottom: 14px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(40px, 10vw, 68px);
+      text-transform: uppercase;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 .line1 { color: var(--white); display: block; }
+    .hero h1 .line2 { color: var(--fire);  display: block; }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 22px;
+    }
+
+    /* LED dots */
+    .led-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .led {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      animation: blink 1.4s ease-in-out infinite;
+    }
+
+    .led:nth-child(odd)  { background: var(--fire); }
+    .led:nth-child(even) { background: var(--gold); }
+    .led:nth-child(1) { animation-delay: 0s; }
+    .led:nth-child(2) { animation-delay: 0.2s; }
+    .led:nth-child(3) { animation-delay: 0.4s; }
+    .led:nth-child(4) { animation-delay: 0.6s; }
+    .led:nth-child(5) { animation-delay: 0.8s; }
+    .led:nth-child(6) { animation-delay: 1.0s; }
+    .led:nth-child(7) { animation-delay: 1.2s; }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.15; }
+    }
+
+    /* Status pill */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4CAF50;
+      flex-shrink: 0;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(76,175,80,0.6); }
+      50%       { box-shadow: 0 0 0 6px rgba(76,175,80,0); }
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       3. QUICK ACTIONS
+    ═══════════════════════════════════════════════════════ */
+    .quick-actions {
+      padding: 32px 20px;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .action-btn {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: var(--ash);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      padding: 16px 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .action-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,107,53,0.12);
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+
+    .action-btn:hover::before { opacity: 1; }
+    .action-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(255,107,53,0.18); }
+    .action-btn:active { transform: translateY(0); }
+
+    .action-btn.primary {
+      grid-column: span 2;
+      background: var(--fire);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 16px;
+      padding: 18px 12px;
+    }
+
+    .action-btn.primary::before {
+      background: rgba(0,0,0,0.1);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       4. PAYMENTS
+    ═══════════════════════════════════════════════════════ */
+    .payments {
+      padding: 32px 20px;
+    }
+
+    .pay-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pay-btn {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 16px;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: var(--font-body);
+      transition: transform 0.2s ease, filter 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .pay-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .pay-btn:active { transform: translateY(0); }
+
+    .pay-btn.venmo   { background: #3D95CE; color: #fff; }
+    .pay-btn.zelle   { background: #6D1ED4; color: #fff; }
+    .pay-btn.cashapp { background: #00D64F; color: #000; }
+
+    .pay-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .pay-info { flex: 1; text-align: left; }
+    .pay-name { font-weight: 600; font-size: 14px; line-height: 1.2; }
+    .pay-handle { font-size: 12px; opacity: 0.75; }
+    .pay-arrow { font-size: 18px; opacity: 0.6; }
+
+    /* ═══════════════════════════════════════════════════════
+       5. LOCATION
+    ═══════════════════════════════════════════════════════ */
+    .location {
+      padding: 32px 20px;
+    }
+
+    .location-card {
+      background: var(--ash);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .loc-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .loc-row:last-of-type { border-bottom: none; }
+
+    .loc-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .loc-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.5;
+    }
+
+    .loc-text small {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .maps-btn {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 14px;
+      background: transparent;
+      border: 2px solid var(--fire);
+      border-radius: 10px;
+      color: var(--fire);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .maps-btn:hover {
+      background: var(--fire);
+      color: var(--ink);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       6. REVIEWS
+    ═══════════════════════════════════════════════════════ */
+    .reviews {
+      padding: 32px 20px;
+    }
+
+    .reviews-card {
+      background: var(--ash);
+      border: 1px solid rgba(255,209,102,0.25);
+      border-radius: 12px;
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    .stars {
+      font-size: 22px;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .score {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 42px;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .review-count {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .review-btn {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--gold);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 28px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s ease, filter 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+      width: 100%;
+    }
+
+    .review-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       7. SOCIAL MEDIA
+    ═══════════════════════════════════════════════════════ */
+    .social {
+      padding: 32px 20px;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .social-btn {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--ash);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      border: 1.5px solid transparent;
+      border-radius: 12px;
+      padding: 16px 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .social-btn:hover {
+      border-color: var(--fire);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255,107,53,0.15);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       8. FOOTER
+    ═══════════════════════════════════════════════════════ */
+    footer {
+      padding: 28px 20px 36px;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-link {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--fire);
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 4px;
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-link:hover { opacity: 0.8; }
+
+    /* ─── SUBTLE ENTRANCE ANIMATION ──────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       1. MARQUEE BAR
+  ══════════════════════════════════════════ -->
+  <div class="marquee-bar" aria-label="Announcements">
+    <div class="marquee-track" aria-hidden="true">
+      <span>🌮 Tacos · Burritos · Quesadillas · Tortas · Agua Fresca ✦ Open Tuesday–Sunday 📍 Mercado Central, Sacramento ✦ Follow us on Instagram @donlupe_tacos</span>
+      <span>🌮 Tacos · Burritos · Quesadillas · Tortas · Agua Fresca ✦ Open Tuesday–Sunday 📍 Mercado Central, Sacramento ✦ Follow us on Instagram @donlupe_tacos</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       2. HERO
+  ══════════════════════════════════════════ -->
+  <section class="hero" aria-label="Welcome">
+    <div class="hero-badge">Street Vendor</div>
+
+    <span class="hero-emoji" role="img" aria-label="Taco">🌮</span>
+
+    <h1>
+      <span class="line1">El Rincón</span>
+      <span class="line2">de Don Lupe</span>
+    </h1>
+
+    <p class="hero-subtitle">Tacos · Antojitos · Sabor de Casa</p>
+
+    <div class="led-row" aria-hidden="true">
+      <div class="led"></div>
+      <div class="led"></div>
+      <div class="led"></div>
+      <div class="led"></div>
+      <div class="led"></div>
+      <div class="led"></div>
+      <div class="led"></div>
+    </div>
+
+    <div class="status-pill" role="status" aria-live="polite">
+      <div class="status-dot"></div>
+      Open now · Closes at 9 PM
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════
+       3. QUICK ACTIONS
+  ══════════════════════════════════════════ -->
+  <section class="quick-actions fade-in" aria-labelledby="actions-label">
+    <p class="section-label" id="actions-label">Quick Actions</p>
+    <div class="actions-grid">
+      <a id="btn-menu" class="action-btn primary" href="#order" role="button">📋 View Full Menu</a>
+      <a id="btn-call" class="action-btn" href="tel:+19165550123" role="button">📞 Call</a>
+      <a id="btn-whatsapp" class="action-btn" href="https://wa.me/19165550123" target="_blank" rel="noopener noreferrer" role="button">💬 WhatsApp</a>
+      <a id="btn-location" class="action-btn" href="#location-section" role="button">📍 Location</a>
+      <a id="btn-order" class="action-btn" href="#order" role="button">🛵 Order Online</a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════
+       4. PAYMENTS
+  ══════════════════════════════════════════ -->
+  <section class="payments fade-in" aria-labelledby="payments-label">
+    <p class="section-label" id="payments-label">Pay Us Easy</p>
+    <div class="pay-stack">
+
+      <a id="btn-venmo" class="pay-btn venmo" href="https://venmo.com/donlupe" target="_blank" rel="noopener noreferrer">
+        <div class="pay-logo">V</div>
+        <div class="pay-info">
+          <div class="pay-name">Venmo</div>
+          <div class="pay-handle">@donlupe-tacos</div>
+        </div>
+        <div class="pay-arrow">→</div>
+      </a>
+
+      <div id="btn-zelle" class="pay-btn zelle" role="button" tabindex="0" aria-label="Pay with Zelle at donlupe@gmail.com">
+        <div class="pay-logo">Z</div>
+        <div class="pay-info">
+          <div class="pay-name">Zelle</div>
+          <div class="pay-handle">donlupe@gmail.com</div>
+        </div>
+        <div class="pay-arrow">→</div>
+      </div>
+
+      <a id="btn-cashapp" class="pay-btn cashapp" href="https://cash.app/$donlupetacos" target="_blank" rel="noopener noreferrer">
+        <div class="pay-logo">$</div>
+        <div class="pay-info">
+          <div class="pay-name">Cash App</div>
+          <div class="pay-handle">$donlupetacos</div>
+        </div>
+        <div class="pay-arrow">→</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════
+       5. LOCATION
+  ══════════════════════════════════════════ -->
+  <section id="location-section" class="location fade-in" aria-labelledby="location-label">
+    <p class="section-label" id="location-label">Find Us</p>
+    <div class="location-card">
+
+      <div class="loc-row">
+        <div class="loc-icon">📍</div>
+        <div class="loc-text">
+          Mercado Central, Stall #14
+          <small>2150 W El Camino Ave, Sacramento CA</small>
+        </div>
+      </div>
+
+      <div class="loc-row">
+        <div class="loc-icon">🕐</div>
+        <div class="loc-text">
+          Tue–Fri 11am–9pm · Sat–Sun 9am–10pm
+          <small>Monday closed</small>
+        </div>
+      </div>
+
+      <div class="loc-row">
+        <div class="loc-icon">🚗</div>
+        <div class="loc-text">Free parking in front of the market</div>
+      </div>
+
+      <a id="btn-maps" class="maps-btn" href="https://maps.google.com/?q=2150+W+El+Camino+Ave+Sacramento+CA" target="_blank" rel="noopener noreferrer">
+        🗺️ Open in Google Maps
+      </a>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════
+       6. REVIEWS
+  ══════════════════════════════════════════ -->
+  <section class="reviews fade-in" aria-labelledby="reviews-label">
+    <p class="section-label" id="reviews-label">Our Rating</p>
+    <div class="reviews-card">
+      <div class="stars" aria-label="5 stars">⭐⭐⭐⭐⭐</div>
+      <div class="score" aria-label="Rating: 4.9">4.9</div>
+      <p class="review-count">Based on 312 Google reviews</p>
+      <a id="btn-review" class="review-btn" href="https://search.google.com/local/writereview?placeid=ChIJ2eUgeAK6j4ARbn7D2HEricU" target="_blank" rel="noopener noreferrer">
+        ⭐ Leave a Review
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════
+       7. SOCIAL MEDIA
+  ══════════════════════════════════════════ -->
+  <section class="social fade-in" aria-labelledby="social-label">
+    <p class="section-label" id="social-label">Follow Us</p>
+    <div class="social-grid">
+      <a id="btn-instagram" class="social-btn" href="https://instagram.com/donlupe_tacos" target="_blank" rel="noopener noreferrer">
+        📸 Instagram
+      </a>
+      <a id="btn-facebook" class="social-btn" href="https://facebook.com/donlupetacos" target="_blank" rel="noopener noreferrer">
+        📘 Facebook
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════════
+       8. FOOTER
+  ══════════════════════════════════════════ -->
+  <footer>
+    <p class="footer-text">Digital portal created by</p>
+    <a class="footer-link" href="https://conect-r.com" target="_blank" rel="noopener noreferrer">CONECT-R</a>
+  </footer>
+
+  <script>
+    // ── Intersection Observer: fade-in on scroll ──────────
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    fadeEls.forEach(el => io.observe(el));
+
+    // ── Location scroll (btn inside quick actions) ────────
+    document.getElementById('btn-location').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('location-section').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // ── Zelle keyboard accessibility ──────────────────────
+    document.getElementById('btn-zelle').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        navigator.clipboard?.writeText('donlupe@gmail.com').catch(() => {});
+        const orig = this.querySelector('.pay-name').textContent;
+        this.querySelector('.pay-name').textContent = 'Copied!';
+        setTimeout(() => { this.querySelector('.pay-name').textContent = orig; }, 1500);
+      }
+    });
+
+    document.getElementById('btn-zelle').addEventListener('click', function() {
+      navigator.clipboard?.writeText('donlupe@gmail.com').catch(() => {});
+      const name = this.querySelector('.pay-name');
+      const orig = name.textContent;
+      name.textContent = 'Copied!';
+      setTimeout(() => { name.textContent = orig; }, 1500);
+    });
+  </script>
+</body>
+</html>
