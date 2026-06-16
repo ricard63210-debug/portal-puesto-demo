@@ -393,6 +393,116 @@
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── STAND BADGE on order card ────────────────────── */
+    .order-stand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .paid-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--green);
+      background: rgba(76,175,80,0.12);
+      border: 1px solid rgba(76,175,80,0.25);
+      padding: 2px 8px;
+      border-radius: 999px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── SETTINGS PANEL ─────────────────────────────── */
+    .settings-btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 16px;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .settings-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.25); }
+
+    .settings-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 400;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .settings-overlay.open { opacity: 1; pointer-events: all; }
+
+    .settings-panel {
+      background: #1A1A1A;
+      border-radius: 20px 20px 0 0;
+      border-top: 2px solid rgba(255,255,255,0.08);
+      width: 100%;
+      max-width: 480px;
+      padding: 14px 20px 40px;
+      transform: translateY(100%);
+      transition: transform 0.32s cubic-bezier(0.34,1.2,0.64,1);
+    }
+    .settings-overlay.open .settings-panel { transform: translateY(0); }
+
+    .settings-handle {
+      width: 40px; height: 4px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 4px;
+      margin: 0 auto 18px;
+    }
+
+    .settings-title {
+      font-family: var(--font-display);
+      font-weight: 900; font-size: 20px;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .settings-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .stripe-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%;
+      padding: 16px;
+      background: #635BFF;
+      color: #fff;
+      font-family: var(--font-display);
+      font-weight: 900; font-size: 17px;
+      text-decoration: none;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      transition: filter 0.2s ease;
+      margin-bottom: 12px;
+    }
+    .stripe-btn:hover { filter: brightness(1.1); }
+
+    .settings-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
@@ -441,6 +551,7 @@
           <div class="live-dot"></div>
           En vivo
         </div>
+        <button class="settings-btn" id="settings-open-btn" aria-label="Configuración de pagos">⚙️</button>
         <button class="lock-btn" onclick="lockKitchen()">🔒 Bloquear</button>
       </div>
     </header>
@@ -491,6 +602,19 @@
       Auto-actualiza cada 10s · <span id="refresh-countdown">10</span>s
     </div>
 
+  </div>
+
+  <!-- ── SETTINGS PANEL ─────────────────────────────────── -->
+  <div class="settings-overlay" id="settings-overlay">
+    <div class="settings-panel">
+      <div class="settings-handle"></div>
+      <div class="settings-title">⚙️ Configuración de Pagos</div>
+      <p class="settings-desc">Conecta tu cuenta de Stripe para empezar a recibir pagos reales de tus clientes. Una vez configurado, los clientes podrán pagar directamente desde el menú digital.</p>
+      <a class="stripe-btn" href="https://dashboard.stripe.com/register" target="_blank" rel="noopener noreferrer">
+        💳 Conectar con Stripe →
+      </a>
+      <p class="settings-note">Una vez conectada tu cuenta, contáctanos para activar pagos reales en este portal.</p>
+    </div>
   </div>
 
   <script>
@@ -674,6 +798,7 @@
         ).join('');
 
         card.innerHTML = `
+          ${order.standNumber ? `<div class="order-stand">\u{1F4CD} STAND #${order.standNumber}<span class="paid-badge">✅ Pagado</span></div>` : ''}
           <div class="order-top">
             <div class="order-num">#${order.num}</div>
             <span class="status-badge ${status}">${statusLabels[status]}</span>
@@ -713,6 +838,15 @@
       80%{transform:translateX(6px)}
     }`;
     document.head.appendChild(styleEl);
+
+    // Settings panel
+    const settingsOverlay = document.getElementById('settings-overlay');
+    document.getElementById('settings-open-btn').addEventListener('click', () => {
+      settingsOverlay.classList.add('open');
+    });
+    settingsOverlay.addEventListener('click', function(e) {
+      if (e.target === this) this.classList.remove('open');
+    });
   </script>
 </body>
 </html>

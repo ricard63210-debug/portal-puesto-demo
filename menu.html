@@ -455,14 +455,212 @@
       -webkit-tap-highlight-color: transparent;
     }
     .send-order-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .send-order-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
-    .order-confirm {
-      display: none;
+    /* ── CHECKOUT OVERLAY (Stand / Payment / Card / Confirm) ─ */
+    .checkout-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 500;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .checkout-overlay.open { opacity: 1; pointer-events: all; }
+
+    .checkout-sheet {
+      background: #181818;
+      border-radius: 20px 20px 0 0;
+      border-top: 2px solid var(--fire);
+      width: 100%;
+      max-width: 480px;
+      padding: 0 0 32px;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.34,1.2,0.64,1);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .checkout-overlay.open .checkout-sheet { transform: translateY(0); }
+    .checkout-sheet::-webkit-scrollbar { display: none; }
+
+    .checkout-handle {
+      width: 40px; height: 4px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 4px;
+      margin: 14px auto 0;
+    }
+
+    .checkout-step { display: none; padding: 20px 20px 0; }
+    .checkout-step.active { display: block; }
+
+    .checkout-back {
+      background: none; border: none;
+      color: var(--fire); font-size: 13px; font-weight: 600;
+      font-family: var(--font-body); cursor: pointer;
+      padding: 0 0 12px; display: flex; align-items: center; gap: 4px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .checkout-back:hover { opacity: 0.75; }
+
+    .checkout-title {
+      font-family: var(--font-display);
+      font-weight: 900; font-size: 24px;
+      text-transform: uppercase; color: var(--white);
+      margin-bottom: 6px; line-height: 1;
+    }
+    .checkout-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+    /* Stand input */
+    .stand-input {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 2px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      color: var(--white);
+      font-family: var(--font-display);
+      font-weight: 800; font-size: 36px;
       text-align: center;
-      padding: 20px 0 4px;
-      font-size: 15px;
-      color: #4CAF50;
-      font-weight: 600;
+      padding: 18px;
+      outline: none;
+      transition: border-color 0.2s ease;
+      margin-bottom: 16px;
+    }
+    .stand-input:focus { border-color: var(--fire); }
+    .stand-input::placeholder { color: rgba(255,255,255,0.2); }
+
+    /* Payment summary */
+    .pay-stand-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,209,102,0.12);
+      border: 1px solid rgba(255,209,102,0.3);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-family: var(--font-display);
+      font-weight: 800; font-size: 15px;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .pay-summary {
+      background: var(--ash);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+    }
+    .pay-summary-row {
+      display: flex; justify-content: space-between;
+      font-size: 13px; color: var(--white);
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .pay-summary-row:last-child { border-bottom: none; }
+    .pay-summary-total {
+      display: flex; justify-content: space-between;
+      align-items: center; padding-top: 10px; margin-top: 4px;
+    }
+    .pay-summary-total-label { font-size: 13px; color: var(--muted); }
+    .pay-summary-total-amt {
+      font-family: var(--font-display); font-weight: 900;
+      font-size: 28px; color: var(--gold);
+    }
+
+    .pay-card-btn {
+      width: 100%; padding: 17px;
+      background: var(--fire); color: var(--ink);
+      font-family: var(--font-display); font-weight: 900;
+      font-size: 18px; text-transform: uppercase;
+      border: none; border-radius: 12px; cursor: pointer;
+      transition: filter 0.2s ease, transform 0.15s ease;
+      letter-spacing: 0.04em;
+      -webkit-tap-highlight-color: transparent;
+      margin-bottom: 10px;
+    }
+    .pay-card-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+    .pay-secure-note {
+      text-align: center; font-size: 12px; color: var(--muted);
+    }
+
+    /* Card modal fields */
+    .card-field-label {
+      font-size: 11px; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin-bottom: 5px; margin-top: 14px;
+    }
+    .card-field-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      color: var(--white);
+      font-family: var(--font-body); font-size: 16px;
+      padding: 13px 14px; outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .card-field-input:focus { border-color: var(--fire); }
+    .card-field-input::placeholder { color: rgba(255,255,255,0.2); }
+    .card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .pay-now-btn {
+      width: 100%; padding: 17px;
+      background: var(--fire); color: var(--ink);
+      font-family: var(--font-display); font-weight: 900;
+      font-size: 18px; text-transform: uppercase;
+      border: none; border-radius: 12px; cursor: pointer;
+      transition: filter 0.2s ease;
+      margin-top: 18px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      letter-spacing: 0.04em;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .pay-now-btn:hover { filter: brightness(1.08); }
+    .pay-now-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Spinner */
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2.5px solid rgba(0,0,0,0.2);
+      border-top-color: var(--ink);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Confirmation */
+    .confirm-icon {
+      font-size: 64px;
+      display: block;
+      text-align: center;
+      margin: 8px 0 16px;
+      animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.4); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+    .confirm-title {
+      font-family: var(--font-display); font-weight: 900;
+      font-size: 28px; text-align: center;
+      color: var(--white); margin-bottom: 8px;
+    }
+    .confirm-sub {
+      font-size: 14px; color: var(--muted);
+      text-align: center; line-height: 1.6;
+    }
+    .confirm-badge {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px;
+      margin: 18px 0 24px;
+      padding: 12px;
+      background: rgba(76,175,80,0.1);
+      border: 1px solid rgba(76,175,80,0.3);
+      border-radius: 10px;
+      font-size: 14px; color: #4CAF50; font-weight: 600;
     }
 
     /* ── LUPE CHAT (same as portal) ───────────────────────── */
@@ -803,8 +1001,65 @@
         <span class="cart-total-label">Total</span>
         <span class="cart-total-amt" id="cart-total">$0.00</span>
       </div>
-      <button class="send-order-btn" id="send-order-btn">🍳 Send Order to Kitchen</button>
-      <p class="order-confirm" id="order-confirm">✅ ¡Orden enviada! Don Lupe is on it 🔥</p>
+      <button class="send-order-btn" id="send-order-btn">Proceed to Payment →</button>
+    </div>
+  </div>
+
+  <!-- ── CHECKOUT OVERLAY ────────────────────────────────── -->
+  <div class="checkout-overlay" id="checkout-overlay">
+    <div class="checkout-sheet" id="checkout-sheet">
+      <div class="checkout-handle"></div>
+
+      <!-- STEP 1: Stand Number -->
+      <div class="checkout-step active" id="step-stand">
+        <h2 class="checkout-title" style="margin-top:16px">📍 ¿En qué stand estás?</h2>
+        <p class="checkout-subtitle">Ingresa el número de tu stand para que te llevemos tu orden.</p>
+        <input type="text" inputmode="numeric" class="stand-input" id="stand-input"
+          placeholder="Ej: 14" maxlength="6" autocomplete="off" aria-label="Número de stand" />
+        <button class="send-order-btn" id="continue-to-pay-btn" disabled>Continuar →</button>
+      </div>
+
+      <!-- STEP 2: Payment -->
+      <div class="checkout-step" id="step-payment">
+        <button class="checkout-back" id="back-to-stand">← Cambiar stand</button>
+        <h2 class="checkout-title">💳 Resumen de pago</h2>
+        <div class="pay-stand-badge" id="pay-stand-label">📍 Stand #—</div>
+        <div class="pay-summary" id="pay-summary"></div>
+        <button class="pay-card-btn" id="pay-with-card-btn">💳 Pay with Card</button>
+        <p class="pay-secure-note">🔒 Secure demo checkout — no real charge</p>
+      </div>
+
+      <!-- STEP 3: Card Details -->
+      <div class="checkout-step" id="step-card">
+        <button class="checkout-back" id="back-to-payment">← Volver</button>
+        <h2 class="checkout-title">💳 Datos de tarjeta</h2>
+        <p class="checkout-subtitle">Demo seguro — ningún cargo real.</p>
+        <div class="card-field-label">Número de tarjeta</div>
+        <input type="text" class="card-field-input" id="card-number"
+          placeholder="4242 4242 4242 4242" maxlength="19" autocomplete="cc-number" />
+        <div class="card-row">
+          <div>
+            <div class="card-field-label">Vencimiento</div>
+            <input type="text" class="card-field-input" id="card-expiry"
+              placeholder="MM/AA" maxlength="5" autocomplete="cc-exp" />
+          </div>
+          <div>
+            <div class="card-field-label">CVC</div>
+            <input type="text" class="card-field-input" id="card-cvc"
+              placeholder="123" maxlength="4" autocomplete="cc-csc" />
+          </div>
+        </div>
+        <button class="pay-now-btn" id="pay-now-btn">Pagar <span id="pay-now-amt"></span></button>
+      </div>
+
+      <!-- STEP 4: Confirmation -->
+      <div class="checkout-step" id="step-confirm">
+        <span class="confirm-icon">✨🎉</span>
+        <div class="confirm-title">¡Pago confirmado!</div>
+        <p class="confirm-sub">Tu orden va directo a la cocina.<br>Don Lupe ya la está preparando.</p>
+        <div class="confirm-badge">✅ Orden enviada a cocina con éxito</div>
+        <button class="send-order-btn" id="confirm-done-btn">Hacer otra orden 🌮</button>
+      </div>
     </div>
   </div>
 
@@ -904,35 +1159,274 @@
       updateCartUI();
     });
 
-    // Send Order
+    /* ═══════════════════════════════════════════════════════
+       CHECKOUT FLOW
+    ═══════════════════════════════════════════════════════ */
+    const checkoutOverlay = document.getElementById('checkout-overlay');
+    let activeStep = 'stand';
+
+    function showStep(id) {
+      document.querySelectorAll('.checkout-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step-' + id).classList.add('active');
+      activeStep = id;
+    }
+
+    function openCheckout() {
+      showStep('stand');
+      document.getElementById('stand-input').value = '';
+      document.getElementById('continue-to-pay-btn').disabled = true;
+      checkoutOverlay.classList.add('open');
+      setTimeout(() => document.getElementById('stand-input').focus(), 300);
+    }
+
+    function closeCheckout() {
+      checkoutOverlay.classList.remove('open');
+    }
+
+    // "Proceed to Payment" → open checkout
     document.getElementById('send-order-btn').addEventListener('click', function() {
       const totalItems = Object.values(cart).reduce((s, i) => s + i.qty, 0);
       if (totalItems === 0) return;
-
-      // Write to localStorage for Cocina
-      const orders = JSON.parse(localStorage.getItem('donlupe_orders') || '[]');
-      const orderNum = (orders.length > 0 ? orders[orders.length - 1].num + 1 : 1);
-      const newOrder = {
-        num: orderNum,
-        ts: new Date().toISOString(),
-        items: Object.entries(cart).map(([name, { price, qty }]) => ({ name, price, qty })),
-        total: Object.values(cart).reduce((s, i) => s + i.price * i.qty, 0),
-        status: 'pending'
-      };
-      orders.push(newOrder);
-      localStorage.setItem('donlupe_orders', JSON.stringify(orders));
-
-      // UI feedback
-      this.style.display = 'none';
-      document.getElementById('order-confirm').style.display = 'block';
-      Object.keys(cart).forEach(k => delete cart[k]);
-      updateCartUI();
-      setTimeout(() => {
-        closeCart();
-        document.getElementById('send-order-btn').style.display = '';
-        document.getElementById('order-confirm').style.display = 'none';
-      }, 2500);
+      closeCart();
+      setTimeout(openCheckout, 350);
     });
+
+    // Tap backdrop to close (only on stand/payment screens)
+    checkoutOverlay.addEventListener('click', function(e) {
+      if (e.target === this && (activeStep === 'stand' || activeStep === 'payment')) {
+        closeCheckout();
+      }
+    });
+
+    // Stand input — enable Continuar when non-empty
+    document.getElementById('stand-input').addEventListener('input', function() {
+      document.getElementById('continue-to-pay-btn').disabled = this.value.trim() === '';
+    });
+    document.getElementById('stand-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && this.value.trim()) goToPayment();
+    });
+
+    // Continuar → payment screen
+    document.getElementById('continue-to-pay-btn').addEventListener('click', goToPayment);
+
+    function goToPayment() {
+      const stand = document.getElementById('stand-input').value.trim();
+      if (!stand) return;
+
+      // Update stand badge
+      document.getElementById('pay-stand-label').textContent = '📍 Stand #' + stand;
+
+      // Render order summary
+      const totalAmt = Object.values(cart).reduce((s, i) => s + i.price * i.qty, 0);
+      const summaryEl = document.getElementById('pay-summary');
+      let html = Object.entries(cart).map(([name, {price, qty}]) =>
+        `<div class="pay-summary-row">
+          <span><strong style="color:var(--fire)">${qty}×</strong> ${name}</span>
+          <span>$${(price * qty).toFixed(2)}</span>
+        </div>`
+      ).join('');
+      html += `<div class="pay-summary-total">
+        <span class="pay-summary-total-label">Total</span>
+        <span class="pay-summary-total-amt">$${totalAmt.toFixed(2)}</span>
+      </div>`;
+      summaryEl.innerHTML = html;
+
+      // Set amount on card step
+      document.getElementById('pay-now-amt').textContent = '$' + totalAmt.toFixed(2);
+
+      showStep('payment');
+    }
+
+    // Back from payment → stand
+    document.getElementById('back-to-stand').addEventListener('click', () => showStep('stand'));
+
+    // Pay with Card → card step
+    document.getElementById('pay-with-card-btn').addEventListener('click', () => {
+      // Reset card fields
+      ['card-number','card-expiry','card-cvc'].forEach(id => document.getElementById(id).value = '');
+      showStep('card');
+    });
+
+    // Back from card → payment
+    document.getElementById('back-to-payment').addEventListener('click', () => showStep('payment'));
+
+    // Card number formatting
+    document.getElementById('card-number').addEventListener('input', function() {
+      let v = this.value.replace(/\D/g,'').slice(0,16);
+      this.value = v.replace(/(.{4})/g,'$1 ').trim();
+    });
+    document.getElementById('card-expiry').addEventListener('input', function() {
+      let v = this.value.replace(/\D/g,'').slice(0,4);
+      if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
+      this.value = v;
+    });
+    document.getElementById('card-cvc').addEventListener('input', function() {
+      this.value = this.value.replace(/\D/g,'').slice(0,4);
+    });
+
+    // Pay Now → processPayment
+    document.getElementById('pay-now-btn').addEventListener('click', async function() {
+      const stand      = document.getElementById('stand-input').value.trim();
+      const totalAmt   = Object.values(cart).reduce((s, i) => s + i.price * i.qty, 0);
+      const orderItems = Object.entries(cart).map(([name, {price, qty}]) => ({name, price, qty}));
+
+      // Show spinner
+      this.disabled = true;
+      this.innerHTML = '<div class="spinner"></div> Procesando...';
+
+      const result = await processPayment(totalAmt, orderItems, stand);
+
+      if (result.success) {
+        // Save to localStorage
+        const orders = JSON.parse(localStorage.getItem('donlupe_orders') || '[]');
+        const orderNum = orders.length > 0 ? orders[orders.length - 1].num + 1 : 1;
+        orders.push({
+          num: orderNum,
+          ts: new Date().toISOString(),
+          items: orderItems,
+          total: totalAmt,
+          status: 'pending',
+          standNumber: stand,
+          paymentStatus: 'paid',
+          paymentMethod: result.paymentMethod
+        });
+        localStorage.setItem('donlupe_orders', JSON.stringify(orders));
+
+        // Clear cart
+        Object.keys(cart).forEach(k => delete cart[k]);
+        updateCartUI();
+
+        // Show confirmation
+        showStep('confirm');
+
+        // Reset button for next use
+        this.disabled = false;
+        this.innerHTML = 'Pagar <span id="pay-now-amt">$0.00</span>';
+      }
+    });
+
+    // Done → close checkout
+    document.getElementById('confirm-done-btn').addEventListener('click', () => {
+      closeCheckout();
+    });
+
+    /* ─────────────────────────────────────────────────────────
+       processPayment — structured as a real-Stripe-ready stub
+    ───────────────────────────────────────────────────────── */
+    async function processPayment(orderTotal, orderItems, standNumber) {
+      // TODO: replace with real Stripe Checkout session call
+      // const res = await fetch('/api/create-checkout-session', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ orderItems, standNumber })
+      // });
+      // const session = await res.json();
+      // window.location.href = session.url;
+
+      // DEMO MODE — simulated success:
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      return { success: true, paymentMethod: 'demo_card' };
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       TABS — smooth scroll to section
+    ═══════════════════════════════════════════════════════ */
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+        this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
+        const target = document.getElementById('cat-' + this.dataset.cat);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Highlight active tab on scroll
+    const sections = document.querySelectorAll('.menu-section');
+    const tabBtns  = document.querySelectorAll('.tab-btn');
+    const scrollObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id.replace('cat-', '');
+          tabBtns.forEach(b => {
+            const active = b.dataset.cat === id;
+            b.classList.toggle('active', active);
+            b.setAttribute('aria-selected', active ? 'true' : 'false');
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(s => scrollObs.observe(s));
+
+    /* ═══════════════════════════════════════════════════════
+       LUPE CHAT
+    ═══════════════════════════════════════════════════════ */
+    const LUPE_SYSTEM = `You are Lupe, the virtual assistant for El Rincón de Don Lupe, a street food vendor in Sacramento. You speak in a warm, funny mix of Spanish and English (Spanglish). You know the full menu: Tacos (Birria $3.50, Al Pastor $3.00, Carnitas $3.00, Vegano $2.50), Burritos (Supremo $9.00, California $8.50, Bowl $8.00), Antojitos (Quesadilla $6.00, Torta Ahogada $8.00, Elote en Vaso $4.00, Nachos $7.00), Bebidas (Horchata $2.50, Jamaica $2.50, Limonada $2.00, Agua Mineral $1.50). Hours: Tue-Fri 11am-9pm, Sat-Sun 9am-10pm, Monday closed. Location: Mercado Central, Stall #14, Sacramento. Help customers pick what to eat, answer questions, and make them hungry. Keep responses short and fun.`;
+    const lupeMessages = [{ role: 'system', content: LUPE_SYSTEM }];
+    let lupeOpen = false, lupeTyping = false;
+
+    const lupeFab   = document.getElementById('lupe-fab');
+    const lupePanel = document.getElementById('lupe-panel');
+    const lupeClose = document.getElementById('lupe-close');
+    const lupeMsgs  = document.getElementById('lupe-messages');
+    const lupeInput = document.getElementById('lupe-input');
+    const lupeSend  = document.getElementById('lupe-send');
+
+    function toggleLupe(open) {
+      lupeOpen = open;
+      lupePanel.classList.toggle('open', open);
+      if (open && lupeMsgs.children.length === 0) appendMsg('assistant', '¡Bienvenido al menú! 🌮 I\'m Lupe. ¿Qué vas a ordenar hoy? I can help you pick the best dish!');
+      if (open) setTimeout(() => lupeInput.focus(), 200);
+    }
+
+    lupeFab.addEventListener('click', () => toggleLupe(!lupeOpen));
+    lupeClose.addEventListener('click', () => toggleLupe(false));
+
+    function appendMsg(role, text) {
+      const el = document.createElement('div');
+      el.className = `chat-msg ${role}`;
+      el.textContent = text;
+      lupeMsgs.appendChild(el);
+      lupeMsgs.scrollTop = lupeMsgs.scrollHeight;
+      return el;
+    }
+
+    async function sendLupe() {
+      const text = lupeInput.value.trim();
+      if (!text || lupeTyping) return;
+      lupeInput.value = '';
+      appendMsg('user', text);
+      lupeMessages.push({ role: 'user', content: text });
+      lupeTyping = true;
+      lupeSend.disabled = true;
+      const typingEl = appendMsg('typing', 'Lupe is typing...');
+      try {
+        const res = await fetch('https://maya-cantina-portal.vercel.app/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: lupeMessages })
+        });
+        const data = await res.json();
+        const reply = data?.choices?.[0]?.message?.content || data?.message || data?.content || '¡Ay! Error. Try again 😅';
+        typingEl.remove();
+        appendMsg('assistant', reply);
+        lupeMessages.push({ role: 'assistant', content: reply });
+      } catch {
+        typingEl.remove();
+        appendMsg('assistant', '¡Ay caramba! Can\'t connect. Try again en un momento 🙏');
+      } finally {
+        lupeTyping = false;
+        lupeSend.disabled = false;
+        lupeInput.focus();
+      }
+    }
+
+    lupeSend.addEventListener('click', sendLupe);
+    lupeInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendLupe(); });
+  </script>
+</body>
+</html>
+
 
     /* ═══════════════════════════════════════════════════════
        TABS — smooth scroll to section
