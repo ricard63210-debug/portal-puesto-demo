@@ -121,13 +121,27 @@
       margin-bottom: 18px;
     }
 
+    .hero-logo-wrap {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin: 0 auto 14px;
+      animation: float 4s ease-in-out infinite;
+      filter: drop-shadow(0 0 18px rgba(255,107,53,0.55)) drop-shadow(0 4px 12px rgba(255,107,53,0.3));
+    }
+
     .hero-logo {
       display: block;
-      height: 80px;
-      width: auto;
-      margin: 0 auto 14px;
-      filter: drop-shadow(0 0 18px rgba(255,107,53,0.55)) drop-shadow(0 4px 12px rgba(255,107,53,0.3));
-      animation: float 4s ease-in-out infinite;
+      height: 90px;
+      width: 90px;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      background: transparent;
     }
 
     @keyframes float {
@@ -665,6 +679,113 @@
       transform: translateY(0);
     }
 
+    /* ─── ZELLE MODAL ──────────────────────────────────────── */
+    .zelle-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .zelle-overlay.open { opacity: 1; pointer-events: all; }
+
+    .zelle-modal {
+      background: #1A1A1A;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 24px 20px;
+      width: 100%;
+      max-width: 340px;
+      position: relative;
+      transform: scale(0.94) translateY(10px);
+      transition: transform 0.25s ease;
+    }
+    .zelle-overlay.open .zelle-modal { transform: scale(1) translateY(0); }
+
+    .zelle-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+      transition: color 0.15s ease;
+    }
+    .zelle-close:hover { color: var(--white); }
+
+    .zelle-modal-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #6D1ED4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .zelle-modal h3 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .zelle-field {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+
+    .zelle-field-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    .zelle-field-value {
+      font-size: 15px;
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .zelle-copy-btn {
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px;
+      background: #6D1ED4;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: filter 0.2s ease, transform 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .zelle-copy-btn:hover { filter: brightness(1.12); }
+    .zelle-copy-btn:active { transform: scale(0.97); }
+
     /* ═══════════════════════════════════════════════════════
        LUPE CHAT WIDGET
     ═══════════════════════════════════════════════════════ */
@@ -852,8 +973,8 @@
   ══════════════════════════════════════════ -->
   <div class="marquee-bar" aria-label="Announcements">
     <div class="marquee-track" aria-hidden="true">
-      <span>🌮 Tacos · Burritos · Quesadillas · Tortas · Agua Fresca ✦ Open Tuesday–Sunday 📍 Mercado Central, Sacramento ✦ Follow us on Instagram @donlupe_tacos</span>
-      <span>🌮 Tacos · Burritos · Quesadillas · Tortas · Agua Fresca ✦ Open Tuesday–Sunday 📍 Mercado Central, Sacramento ✦ Follow us on Instagram @donlupe_tacos</span>
+      <span>✦ EJEMPLO DE PORTAL INTERACTIVO ✦ Tacos · Burritos · Quesadillas · Tortas · Agua Fresca ✦ EJEMPLO DE PORTAL INTERACTIVO ✦ Abierto Martes a Domingo · Mercado Central, Sacramento</span>
+      <span>✦ EJEMPLO DE PORTAL INTERACTIVO ✦ Tacos · Burritos · Quesadillas · Tortas · Agua Fresca ✦ EJEMPLO DE PORTAL INTERACTIVO ✦ Abierto Martes a Domingo · Mercado Central, Sacramento</span>
     </div>
   </div>
 
@@ -863,7 +984,9 @@
   <section class="hero" aria-label="Welcome">
     <div class="hero-badge">Street Vendor</div>
 
-    <img src="logo.png" alt="El Rincón de Don Lupe logo" class="hero-logo" />
+    <div class="hero-logo-wrap">
+      <img src="logo.png" alt="El Rincón de Don Lupe logo" class="hero-logo" />
+    </div>
 
     <h1>
       <span class="line1">El Rincón</span>
@@ -897,8 +1020,8 @@
     <p class="section-label" id="actions-label">Quick Actions</p>
     <div class="actions-grid">
       <a id="btn-menu" class="action-btn primary" href="/menu" role="button">📋 View Full Menu</a>
-      <a id="btn-call" class="action-btn" href="tel:+19165550123" role="button">📞 Call</a>
-      <a id="btn-whatsapp" class="action-btn" href="https://wa.me/19165550123" target="_blank" rel="noopener noreferrer" role="button">💬 WhatsApp</a>
+      <a id="btn-call" class="action-btn" href="tel:+19168120873" role="button">📞 Call</a>
+      <a id="btn-whatsapp" class="action-btn" href="https://wa.me/19168120873" target="_blank" rel="noopener noreferrer" role="button">💬 WhatsApp</a>
       <a id="btn-location" class="action-btn" href="#location-section" role="button">📍 Location</a>
       <a id="btn-order" class="action-btn" href="/menu" role="button">🛵 Order Online</a>
     </div>
@@ -913,23 +1036,23 @@
     <p class="section-label" id="payments-label">Pay Us Easy</p>
     <div class="pay-stack">
 
-      <a id="btn-venmo" class="pay-btn venmo" href="https://venmo.com/donlupe" target="_blank" rel="noopener noreferrer">
+      <a id="btn-venmo" class="pay-btn venmo" href="https://venmo.com/u/Ricardo-Orozco-84" target="_blank" rel="noopener noreferrer">
         <div class="pay-logo">V</div>
         <div class="pay-info">
           <div class="pay-name">Venmo</div>
-          <div class="pay-handle">@donlupe-tacos</div>
+          <div class="pay-handle">@Ricardo-Orozco-84</div>
         </div>
         <div class="pay-arrow">→</div>
       </a>
 
-      <div id="btn-zelle" class="pay-btn zelle" role="button" tabindex="0" aria-label="Pay with Zelle at donlupe@gmail.com">
+      <button id="btn-zelle" class="pay-btn zelle" type="button" aria-label="Pay with Zelle — opens payment details">
         <div class="pay-logo">Z</div>
         <div class="pay-info">
           <div class="pay-name">Zelle</div>
-          <div class="pay-handle">donlupe@gmail.com</div>
+          <div class="pay-handle">Toca para ver datos</div>
         </div>
         <div class="pay-arrow">→</div>
-      </div>
+      </button>
 
       <a id="btn-cashapp" class="pay-btn cashapp" href="https://cash.app/$donlupetacos" target="_blank" rel="noopener noreferrer">
         <div class="pay-logo">$</div>
@@ -991,7 +1114,7 @@
       <div class="stars" aria-label="5 stars">⭐⭐⭐⭐⭐</div>
       <div class="score" aria-label="Rating: 4.9">4.9</div>
       <p class="review-count">Based on 312 Google reviews</p>
-      <a id="btn-review" class="review-btn" href="https://search.google.com/local/writereview?placeid=ChIJ2eUgeAK6j4ARbn7D2HEricU" target="_blank" rel="noopener noreferrer">
+      <a id="btn-review" class="review-btn" href="https://www.google.com/maps/search/Mexican+food+truck+Sacramento" target="_blank" rel="noopener noreferrer">
         ⭐ Leave a Review
       </a>
       <button id="btn-bad-exp" class="bad-exp-btn" type="button">
@@ -1021,10 +1144,10 @@
   <section class="social fade-in" aria-labelledby="social-label">
     <p class="section-label" id="social-label">Follow Us</p>
     <div class="social-grid">
-      <a id="btn-instagram" class="social-btn" href="https://instagram.com/donlupe_tacos" target="_blank" rel="noopener noreferrer">
+      <a id="btn-instagram" class="social-btn" href="https://www.instagram.com/alamedatacossac/" target="_blank" rel="noopener noreferrer">
         📸 Instagram
       </a>
-      <a id="btn-facebook" class="social-btn" href="https://facebook.com/donlupetacos" target="_blank" rel="noopener noreferrer">
+      <a id="btn-facebook" class="social-btn" href="https://www.facebook.com/alamedatacossac" target="_blank" rel="noopener noreferrer">
         📘 Facebook
       </a>
     </div>
@@ -1041,9 +1164,45 @@
   </footer>
 
   <!-- ══════════════════════════════════════════
+       ZELLE MODAL
+  ══════════════════════════════════════════ -->
+  <div class="zelle-overlay" id="zelle-overlay" role="dialog" aria-modal="true" aria-label="Pago por Zelle">
+    <div class="zelle-modal">
+      <button class="zelle-close" id="zelle-close-btn" aria-label="Cerrar">✕</button>
+      <div class="zelle-modal-icon">Z</div>
+      <h3>Paga con Zelle</h3>
+      <div class="zelle-field">
+        <div class="zelle-field-label">Email</div>
+        <div class="zelle-field-value">ricard63210@gmail.com</div>
+      </div>
+      <div class="zelle-field">
+        <div class="zelle-field-label">Nombre</div>
+        <div class="zelle-field-value">Ricardo Orozco Hurtado</div>
+      </div>
+      <button class="zelle-copy-btn" id="zelle-copy-btn" type="button">📋 Copy Email</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
        LUPE CHAT WIDGET
   ══════════════════════════════════════════ -->
-  <button class="lupe-fab" id="lupe-fab" aria-label="Chat with Lupe" title="Chat with Lupe">🤖</button>
+  <button class="lupe-fab" id="lupe-fab" aria-label="Chat con Lupe" title="Chat con Lupe">
+    <svg width="32" height="32" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Face -->
+      <circle cx="32" cy="26" r="16" fill="#F4C2A1"/>
+      <!-- Hair -->
+      <path d="M16 22 Q18 8 32 8 Q46 8 48 22 Q44 14 32 14 Q20 14 16 22Z" fill="#3D1F00"/>
+      <path d="M16 22 Q14 32 16 40 Q18 34 20 32" fill="#3D1F00"/>
+      <path d="M48 22 Q50 32 48 40 Q46 34 44 32" fill="#3D1F00"/>
+      <!-- Eyes -->
+      <ellipse cx="26" cy="26" rx="2.5" ry="3" fill="#3D1F00"/>
+      <ellipse cx="38" cy="26" rx="2.5" ry="3" fill="#3D1F00"/>
+      <!-- Smile -->
+      <path d="M26 33 Q32 38 38 33" stroke="#C0604A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <!-- Body -->
+      <path d="M18 56 Q20 44 32 42 Q44 44 46 56" fill="#FF6B35"/>
+    </svg>
+  </button>
 
   <div class="lupe-panel" id="lupe-panel" role="dialog" aria-label="Chat with Lupe" aria-modal="true">
     <div class="lupe-header">
@@ -1074,24 +1233,34 @@
     }, { threshold: 0.12 });
     fadeEls.forEach(el => io.observe(el));
 
+    // ── Zelle modal ───────────────────────────────────────
+    const zelleOverlay = document.getElementById('zelle-overlay');
+    const zelleCopyBtn = document.getElementById('zelle-copy-btn');
+
+    document.getElementById('btn-zelle').addEventListener('click', () => {
+      zelleOverlay.classList.add('open');
+    });
+    document.getElementById('zelle-close-btn').addEventListener('click', () => {
+      zelleOverlay.classList.remove('open');
+    });
+    zelleOverlay.addEventListener('click', function(e) {
+      if (e.target === this) this.classList.remove('open');
+    });
+    zelleCopyBtn.addEventListener('click', function() {
+      navigator.clipboard?.writeText('ricard63210@gmail.com').catch(() => {});
+      const orig = this.textContent;
+      this.textContent = '¡Copiado! ✓';
+      this.style.background = '#4CAF50';
+      setTimeout(() => { this.textContent = orig; this.style.background = ''; }, 2000);
+    });
+
     // ── Location scroll ───────────────────────────────────
     document.getElementById('btn-location').addEventListener('click', function(e) {
       e.preventDefault();
       document.getElementById('location-section').scrollIntoView({ behavior: 'smooth' });
     });
 
-    // ── Zelle copy to clipboard ───────────────────────────
-    function zelleClick() {
-      navigator.clipboard?.writeText('donlupe@gmail.com').catch(() => {});
-      const name = document.querySelector('#btn-zelle .pay-name');
-      const orig = name.textContent;
-      name.textContent = 'Copied!';
-      setTimeout(() => { name.textContent = orig; }, 1500);
-    }
-    document.getElementById('btn-zelle').addEventListener('click', zelleClick);
-    document.getElementById('btn-zelle').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); zelleClick(); }
-    });
+    // (Zelle handled by modal above)
 
     // ── Bad Experience → show feedback form ───────────────
     document.getElementById('btn-bad-exp').addEventListener('click', function() {
