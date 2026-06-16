@@ -121,11 +121,12 @@
       margin-bottom: 18px;
     }
 
-    .hero-emoji {
-      font-size: 52px;
+    .hero-logo {
       display: block;
-      filter: drop-shadow(0 0 18px rgba(255,107,53,0.6));
-      margin-bottom: 14px;
+      height: 80px;
+      width: auto;
+      margin: 0 auto 14px;
+      filter: drop-shadow(0 0 18px rgba(255,107,53,0.55)) drop-shadow(0 4px 12px rgba(255,107,53,0.3));
       animation: float 4s ease-in-out infinite;
     }
 
@@ -300,6 +301,7 @@
       font-family: var(--font-body);
       transition: transform 0.2s ease, filter 0.2s ease;
       -webkit-tap-highlight-color: transparent;
+      width: 100%;
     }
 
     .pay-btn:hover {
@@ -330,7 +332,7 @@
     .pay-info { flex: 1; text-align: left; }
     .pay-name { font-weight: 600; font-size: 14px; line-height: 1.2; }
     .pay-handle { font-size: 12px; opacity: 0.75; }
-    .pay-arrow { font-size: 18px; opacity: 0.6; }
+    .pay-arrow { font-size: 18px; opacity: 0.6; margin-left: auto; }
 
     /* ═══════════════════════════════════════════════════════
        5. LOCATION
@@ -340,19 +342,20 @@
     }
 
     .location-card {
-      background: var(--ash);
+      background: var(--smoke);
+      border: 1px solid rgba(255,255,255,0.07);
       border-radius: 12px;
-      padding: 20px;
+      padding: 4px 20px 20px;
       display: flex;
       flex-direction: column;
-      gap: 0;
     }
 
     .loc-row {
       display: flex;
+      flex-direction: row;
       align-items: flex-start;
       gap: 12px;
-      padding: 14px 0;
+      padding: 16px 0;
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
@@ -361,7 +364,8 @@
     .loc-icon {
       font-size: 20px;
       flex-shrink: 0;
-      margin-top: 1px;
+      margin-top: 2px;
+      line-height: 1;
     }
 
     .loc-text {
@@ -376,7 +380,7 @@
       font-size: 12px;
       color: var(--muted);
       font-weight: 400;
-      margin-top: 2px;
+      margin-top: 3px;
     }
 
     .maps-btn {
@@ -469,6 +473,118 @@
       filter: brightness(1.06);
     }
 
+    /* ─── BAD EXPERIENCE BUTTON ──────────────────────────── */
+    .bad-exp-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px;
+      background: #1A1A1A;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 400;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s ease, color 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .bad-exp-btn:hover {
+      border-color: rgba(255,255,255,0.25);
+      color: var(--white);
+    }
+
+    /* ─── FEEDBACK FORM SECTION ──────────────────────────── */
+    #feedback-section {
+      padding: 0 20px 32px;
+      display: none;
+    }
+
+    #feedback-section.visible { display: block; }
+
+    .feedback-card {
+      background: var(--ash);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .feedback-card h3 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .feedback-card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .feedback-textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 12px;
+      resize: vertical;
+      min-height: 100px;
+      outline: none;
+      transition: border-color 0.2s ease;
+      margin-bottom: 12px;
+    }
+
+    .feedback-textarea:focus {
+      border-color: var(--fire);
+    }
+
+    .feedback-submit {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 14px;
+      background: var(--ash);
+      border: 1.5px solid var(--fire);
+      border-radius: 10px;
+      color: var(--fire);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .feedback-submit:hover {
+      background: var(--fire);
+      color: var(--ink);
+    }
+
+    .feedback-thanks {
+      display: none;
+      text-align: center;
+      padding: 20px 0 4px;
+      font-size: 14px;
+      color: #4CAF50;
+      font-weight: 500;
+    }
+
     /* ═══════════════════════════════════════════════════════
        7. SOCIAL MEDIA
     ═══════════════════════════════════════════════════════ */
@@ -513,7 +629,7 @@
        8. FOOTER
     ═══════════════════════════════════════════════════════ */
     footer {
-      padding: 28px 20px 36px;
+      padding: 28px 20px 100px;
       text-align: center;
     }
 
@@ -537,7 +653,7 @@
 
     .footer-link:hover { opacity: 0.8; }
 
-    /* ─── SUBTLE ENTRANCE ANIMATION ──────────────────────── */
+    /* ─── ENTRANCE ANIMATION ──────────────────────────────── */
     .fade-in {
       opacity: 0;
       transform: translateY(18px);
@@ -548,6 +664,185 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* ═══════════════════════════════════════════════════════
+       LUPE CHAT WIDGET
+    ═══════════════════════════════════════════════════════ */
+    .lupe-fab {
+      position: fixed;
+      bottom: 24px;
+      left: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--fire);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 4px 20px rgba(255,107,53,0.45);
+      z-index: 900;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .lupe-fab:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 28px rgba(255,107,53,0.6);
+    }
+
+    .lupe-panel {
+      position: fixed;
+      bottom: 90px;
+      left: 16px;
+      width: calc(100vw - 32px);
+      max-width: 380px;
+      height: 480px;
+      background: #1C1C1C;
+      border: 1px solid rgba(255,107,53,0.3);
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      z-index: 901;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .lupe-panel.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+
+    .lupe-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      background: var(--fire);
+      color: var(--ink);
+      flex-shrink: 0;
+    }
+
+    .lupe-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .lupe-title { font-family: var(--font-display); font-weight: 800; font-size: 15px; }
+    .lupe-sub   { font-size: 11px; opacity: 0.75; }
+
+    .lupe-close {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: var(--ink);
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity 0.15s ease;
+    }
+    .lupe-close:hover { opacity: 1; }
+
+    .lupe-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      scroll-behavior: smooth;
+    }
+
+    .lupe-messages::-webkit-scrollbar { width: 4px; }
+    .lupe-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+    .chat-msg {
+      max-width: 85%;
+      font-size: 13px;
+      line-height: 1.5;
+      padding: 9px 12px;
+      border-radius: 12px;
+      word-break: break-word;
+    }
+
+    .chat-msg.assistant {
+      background: var(--ash);
+      color: var(--white);
+      border-bottom-left-radius: 3px;
+      align-self: flex-start;
+    }
+
+    .chat-msg.user {
+      background: var(--fire);
+      color: var(--ink);
+      border-bottom-right-radius: 3px;
+      align-self: flex-end;
+      font-weight: 500;
+    }
+
+    .chat-msg.typing {
+      background: var(--ash);
+      color: var(--muted);
+      align-self: flex-start;
+      font-style: italic;
+    }
+
+    .lupe-input-row {
+      display: flex;
+      gap: 8px;
+      padding: 10px 12px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      flex-shrink: 0;
+    }
+
+    .lupe-input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 13px;
+      padding: 9px 12px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .lupe-input:focus { border-color: var(--fire); }
+    .lupe-input::placeholder { color: var(--muted); }
+
+    .lupe-send {
+      width: 38px;
+      height: 38px;
+      background: var(--fire);
+      border: none;
+      border-radius: 8px;
+      color: var(--ink);
+      font-size: 17px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: filter 0.2s ease;
+    }
+    .lupe-send:hover { filter: brightness(1.1); }
+    .lupe-send:disabled { opacity: 0.4; cursor: not-allowed; }
   </style>
 </head>
 <body>
@@ -568,7 +863,7 @@
   <section class="hero" aria-label="Welcome">
     <div class="hero-badge">Street Vendor</div>
 
-    <span class="hero-emoji" role="img" aria-label="Taco">🌮</span>
+    <img src="logo.png" alt="El Rincón de Don Lupe logo" class="hero-logo" />
 
     <h1>
       <span class="line1">El Rincón</span>
@@ -601,11 +896,11 @@
   <section class="quick-actions fade-in" aria-labelledby="actions-label">
     <p class="section-label" id="actions-label">Quick Actions</p>
     <div class="actions-grid">
-      <a id="btn-menu" class="action-btn primary" href="#order" role="button">📋 View Full Menu</a>
+      <a id="btn-menu" class="action-btn primary" href="/menu" role="button">📋 View Full Menu</a>
       <a id="btn-call" class="action-btn" href="tel:+19165550123" role="button">📞 Call</a>
       <a id="btn-whatsapp" class="action-btn" href="https://wa.me/19165550123" target="_blank" rel="noopener noreferrer" role="button">💬 WhatsApp</a>
       <a id="btn-location" class="action-btn" href="#location-section" role="button">📍 Location</a>
-      <a id="btn-order" class="action-btn" href="#order" role="button">🛵 Order Online</a>
+      <a id="btn-order" class="action-btn" href="/menu" role="button">🛵 Order Online</a>
     </div>
   </section>
 
@@ -643,7 +938,7 @@
           <div class="pay-handle">$donlupetacos</div>
         </div>
         <div class="pay-arrow">→</div>
-      </div>
+      </a>
 
     </div>
   </section>
@@ -699,6 +994,22 @@
       <a id="btn-review" class="review-btn" href="https://search.google.com/local/writereview?placeid=ChIJ2eUgeAK6j4ARbn7D2HEricU" target="_blank" rel="noopener noreferrer">
         ⭐ Leave a Review
       </a>
+      <button id="btn-bad-exp" class="bad-exp-btn" type="button">
+        🙁 Had a bad experience? Let us know
+      </button>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       FEEDBACK FORM (hidden by default)
+  ══════════════════════════════════════════ -->
+  <section id="feedback-section" aria-labelledby="feedback-label">
+    <div class="feedback-card">
+      <h3 id="feedback-label">💬 Tell Us What Happened</h3>
+      <p>We're sorry to hear that. Your feedback helps us do better — Don Lupe reads every message personally.</p>
+      <textarea id="feedback-text" class="feedback-textarea" placeholder="Describe what happened..." aria-label="Feedback message"></textarea>
+      <button id="feedback-submit" class="feedback-submit" type="button">Send Feedback →</button>
+      <p class="feedback-thanks" id="feedback-thanks">✅ ¡Gracias! We got your message and will make it right.</p>
     </div>
   </section>
 
@@ -729,6 +1040,27 @@
     <a class="footer-link" href="https://conect-r.com" target="_blank" rel="noopener noreferrer">CONECT-R</a>
   </footer>
 
+  <!-- ══════════════════════════════════════════
+       LUPE CHAT WIDGET
+  ══════════════════════════════════════════ -->
+  <button class="lupe-fab" id="lupe-fab" aria-label="Chat with Lupe" title="Chat with Lupe">🤖</button>
+
+  <div class="lupe-panel" id="lupe-panel" role="dialog" aria-label="Chat with Lupe" aria-modal="true">
+    <div class="lupe-header">
+      <div class="lupe-avatar">🌮</div>
+      <div>
+        <div class="lupe-title">Lupe</div>
+        <div class="lupe-sub">Asistente virtual · Online</div>
+      </div>
+      <button class="lupe-close" id="lupe-close" aria-label="Close chat">✕</button>
+    </div>
+    <div class="lupe-messages" id="lupe-messages"></div>
+    <div class="lupe-input-row">
+      <input type="text" class="lupe-input" id="lupe-input" placeholder="Ask me anything..." autocomplete="off" aria-label="Chat message" />
+      <button class="lupe-send" id="lupe-send" aria-label="Send message">➤</button>
+    </div>
+  </div>
+
   <script>
     // ── Intersection Observer: fade-in on scroll ──────────
     const fadeEls = document.querySelectorAll('.fade-in');
@@ -740,33 +1072,117 @@
         }
       });
     }, { threshold: 0.12 });
-
     fadeEls.forEach(el => io.observe(el));
 
-    // ── Location scroll (btn inside quick actions) ────────
+    // ── Location scroll ───────────────────────────────────
     document.getElementById('btn-location').addEventListener('click', function(e) {
       e.preventDefault();
       document.getElementById('location-section').scrollIntoView({ behavior: 'smooth' });
     });
 
-    // ── Zelle keyboard accessibility ──────────────────────
-    document.getElementById('btn-zelle').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        navigator.clipboard?.writeText('donlupe@gmail.com').catch(() => {});
-        const orig = this.querySelector('.pay-name').textContent;
-        this.querySelector('.pay-name').textContent = 'Copied!';
-        setTimeout(() => { this.querySelector('.pay-name').textContent = orig; }, 1500);
-      }
-    });
-
-    document.getElementById('btn-zelle').addEventListener('click', function() {
+    // ── Zelle copy to clipboard ───────────────────────────
+    function zelleClick() {
       navigator.clipboard?.writeText('donlupe@gmail.com').catch(() => {});
-      const name = this.querySelector('.pay-name');
+      const name = document.querySelector('#btn-zelle .pay-name');
       const orig = name.textContent;
       name.textContent = 'Copied!';
       setTimeout(() => { name.textContent = orig; }, 1500);
+    }
+    document.getElementById('btn-zelle').addEventListener('click', zelleClick);
+    document.getElementById('btn-zelle').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); zelleClick(); }
     });
+
+    // ── Bad Experience → show feedback form ───────────────
+    document.getElementById('btn-bad-exp').addEventListener('click', function() {
+      const section = document.getElementById('feedback-section');
+      section.classList.add('visible');
+      setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    });
+
+    document.getElementById('feedback-submit').addEventListener('click', function() {
+      const text = document.getElementById('feedback-text').value.trim();
+      if (!text) return;
+      document.getElementById('feedback-text').disabled = true;
+      this.disabled = true;
+      document.getElementById('feedback-thanks').style.display = 'block';
+      this.style.display = 'none';
+    });
+
+    // ═══════════════════════════════════════════════════════
+    // LUPE CHAT
+    // ═══════════════════════════════════════════════════════
+    const LUPE_SYSTEM = `You are Lupe, the virtual assistant for El Rincón de Don Lupe, a street food vendor in Sacramento. You speak in a warm, funny mix of Spanish and English (Spanglish). You know the full menu: Tacos (Birria $3.50, Al Pastor $3.00, Carnitas $3.00, Vegano $2.50), Burritos (Supremo $9.00, California $8.50, Bowl $8.00), Antojitos (Quesadilla $6.00, Torta Ahogada $8.00, Elote en Vaso $4.00, Nachos $7.00), Bebidas (Horchata $2.50, Jamaica $2.50, Limonada $2.00, Agua Mineral $1.50). Hours: Tue-Fri 11am-9pm, Sat-Sun 9am-10pm, Monday closed. Location: Mercado Central, Stall #14, Sacramento. Help customers pick what to eat, answer questions, and make them hungry. Keep responses short and fun.`;
+
+    const lupeMessages = [{ role: 'system', content: LUPE_SYSTEM }];
+    let lupeOpen = false;
+    let lupeTyping = false;
+
+    const fab      = document.getElementById('lupe-fab');
+    const panel    = document.getElementById('lupe-panel');
+    const closeBtn = document.getElementById('lupe-close');
+    const msgBox   = document.getElementById('lupe-messages');
+    const input    = document.getElementById('lupe-input');
+    const sendBtn  = document.getElementById('lupe-send');
+
+    function toggleLupe(open) {
+      lupeOpen = open;
+      panel.classList.toggle('open', open);
+      if (open && msgBox.children.length === 0) {
+        appendMsg('assistant', '¡Hola! I\'m Lupe 🌮 ¿Qué se te antoja hoy? Ask me about our menu, hours, or anything you\'d like to know!');
+      }
+      if (open) setTimeout(() => input.focus(), 200);
+    }
+
+    fab.addEventListener('click', () => toggleLupe(!lupeOpen));
+    closeBtn.addEventListener('click', () => toggleLupe(false));
+
+    function appendMsg(role, text) {
+      const el = document.createElement('div');
+      el.className = `chat-msg ${role}`;
+      el.textContent = text;
+      msgBox.appendChild(el);
+      msgBox.scrollTop = msgBox.scrollHeight;
+      return el;
+    }
+
+    async function sendLupe() {
+      const text = input.value.trim();
+      if (!text || lupeTyping) return;
+      input.value = '';
+      appendMsg('user', text);
+      lupeMessages.push({ role: 'user', content: text });
+
+      lupeTyping = true;
+      sendBtn.disabled = true;
+      const typingEl = appendMsg('typing', 'Lupe is typing...');
+
+      try {
+        const res = await fetch('https://maya-cantina-portal.vercel.app/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: lupeMessages })
+        });
+        const data = await res.json();
+        const reply = data?.choices?.[0]?.message?.content
+                   || data?.message
+                   || data?.content
+                   || '¡Ay! Something went wrong. Try again in a sec 😅';
+        typingEl.remove();
+        appendMsg('assistant', reply);
+        lupeMessages.push({ role: 'assistant', content: reply });
+      } catch (err) {
+        typingEl.remove();
+        appendMsg('assistant', '¡Ay caramba! Can\'t connect right now. Try again in un momento 🙏');
+      } finally {
+        lupeTyping = false;
+        sendBtn.disabled = false;
+        input.focus();
+      }
+    }
+
+    sendBtn.addEventListener('click', sendLupe);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') sendLupe(); });
   </script>
 </body>
 </html>
