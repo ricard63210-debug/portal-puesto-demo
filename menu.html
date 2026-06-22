@@ -663,6 +663,305 @@
       font-size: 14px; color: #4CAF50; font-weight: 600;
     }
 
+    /* ── PAYMENT METHODS SELECTOR & SUCCESS MODAL ─────────── */
+    .pay-methods-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0 20px;
+    }
+    .pay-method-btn {
+      background: var(--ash);
+      border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 12px 10px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .pay-method-btn:hover {
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-1px);
+    }
+    .pay-method-btn:active {
+      transform: scale(0.97);
+    }
+    .pay-method-emoji {
+      font-size: 20px;
+    }
+    .pay-method-btn.active {
+      background: rgba(255,107,53,0.12);
+      border-color: var(--fire);
+      box-shadow: 0 4px 12px rgba(255,107,53,0.2);
+    }
+    .pay-method-btn[data-method="venmo"].active {
+      background: rgba(118, 54, 219, 0.12);
+      border-color: #7636DB;
+      box-shadow: 0 4px 12px rgba(118, 54, 219, 0.2);
+    }
+    .pay-method-btn[data-method="cashapp"].active {
+      background: rgba(0, 214, 80, 0.12);
+      border-color: #00D650;
+      box-shadow: 0 4px 12px rgba(0, 214, 80, 0.2);
+    }
+    .pay-method-btn[data-method="applepay"].active {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--white);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+    }
+
+    /* QR Code Card Stylings */
+    .mock-qr-card {
+      background: rgba(255,255,255,0.02);
+      border-radius: 14px;
+      padding: 22px 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      border: 2px dashed rgba(255,255,255,0.1);
+      transition: border-color 0.25s ease;
+    }
+    .mock-qr-card.venmo-theme {
+      border-color: rgba(118, 54, 219, 0.35);
+      background: linear-gradient(180deg, rgba(118, 54, 219, 0.04) 0%, transparent 100%);
+    }
+    .mock-qr-card.cashapp-theme {
+      border-color: rgba(0, 214, 80, 0.35);
+      background: linear-gradient(180deg, rgba(0, 214, 80, 0.04) 0%, transparent 100%);
+    }
+    .qr-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .qr-header .qr-brand-name {
+      color: var(--white);
+    }
+    .mock-qr-card.venmo-theme .qr-header { color: #8F55EC; }
+    .mock-qr-card.cashapp-theme .qr-header { color: #10E763; }
+    
+    .qr-code-placeholder {
+      background: #ffffff;
+      padding: 10px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .qr-svg {
+      width: 120px;
+      height: 120px;
+      color: #121212;
+    }
+    .qr-text {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* Purple and Green Pay Buttons */
+    .pay-now-btn.venmo-btn {
+      background: #7636DB;
+      color: var(--white);
+    }
+    .pay-now-btn.venmo-btn:hover {
+      filter: brightness(1.15);
+    }
+    .pay-now-btn.cashapp-btn {
+      background: #00D650;
+      color: var(--ink);
+    }
+    .pay-now-btn.cashapp-btn:hover {
+      filter: brightness(1.15);
+    }
+
+    /* Apple Pay Button */
+    .apple-pay-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 16px;
+      background: #000000;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-weight: 600;
+      font-size: 19px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-tap-highlight-color: transparent;
+      margin-top: 10px;
+    }
+    .apple-pay-btn:hover {
+      background: #111111;
+      border-color: rgba(255,255,255,0.4);
+    }
+    .apple-pay-btn:active {
+      transform: scale(0.98);
+    }
+    .apple-logo-svg {
+      width: 18px;
+      height: 22px;
+    }
+
+    /* Success Overlay fullscreen */
+    .success-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      padding: 20px;
+    }
+    .success-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .success-card {
+      background: #181818;
+      border-radius: 24px;
+      border: 2px solid var(--fire);
+      width: 100%;
+      max-width: 400px;
+      padding: 28px 24px;
+      box-shadow: 0 20px 80px rgba(255,107,53,0.25);
+      transform: translateY(30px) scale(0.95);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .success-overlay.open .success-card {
+      transform: translateY(0) scale(1);
+    }
+    .success-fire-anim {
+      font-size: 64px;
+      display: inline-block;
+      animation: bounceFire 1.6s infinite ease-in-out;
+      margin: 8px 0;
+    }
+    @keyframes bounceFire {
+      0%, 100% { transform: scale(1) translateY(0); }
+      50% { transform: scale(1.15) translateY(-8px); filter: drop-shadow(0 8px 16px rgba(255,107,53,0.4)); }
+    }
+    .success-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 30px;
+      text-transform: uppercase;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 2px;
+    }
+    .success-title span {
+      color: var(--fire);
+    }
+    .success-message {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .success-receipt {
+      background: var(--ash);
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+      text-align: left;
+      margin: 4px 0;
+    }
+    .receipt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed rgba(255,255,255,0.12);
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+    .receipt-ordernum {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 20px;
+      color: var(--gold);
+    }
+    .receipt-stand {
+      font-size: 11px;
+      background: rgba(255,255,255,0.08);
+      padding: 3px 8px;
+      border-radius: 6px;
+      color: var(--white);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .receipt-items-title {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    .receipt-item-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 3px 0;
+      color: var(--white);
+    }
+    .receipt-item-qty {
+      color: var(--fire);
+      font-weight: 700;
+      margin-right: 4px;
+    }
+    .receipt-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px dashed rgba(255,255,255,0.12);
+      padding-top: 8px;
+      margin-top: 8px;
+    }
+    .receipt-total-label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .receipt-total-val {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 22px;
+      color: var(--gold);
+    }
+    .success-btn {
+      margin-top: 8px;
+    }
+
     /* ── LUPE CHAT (same as portal) ───────────────────────── */
     .lupe-fab {
       position: fixed;
@@ -1025,41 +1324,160 @@
         <h2 class="checkout-title">💳 Resumen de pago</h2>
         <div class="pay-stand-badge" id="pay-stand-label">📍 Stand #—</div>
         <div class="pay-summary" id="pay-summary"></div>
-        <button class="pay-card-btn" id="pay-with-card-btn">💳 Pay with Card</button>
-        <p class="pay-secure-note">🔒 Secure demo checkout — no real charge</p>
-      </div>
 
-      <!-- STEP 3: Card Details -->
-      <div class="checkout-step" id="step-card">
-        <button class="checkout-back" id="back-to-payment">← Volver</button>
-        <h2 class="checkout-title">💳 Datos de tarjeta</h2>
-        <p class="checkout-subtitle">Demo seguro — ningún cargo real.</p>
-        <div class="card-field-label">Número de tarjeta</div>
-        <input type="text" class="card-field-input" id="card-number"
-          placeholder="4242 4242 4242 4242" maxlength="19" autocomplete="cc-number" />
-        <div class="card-row">
-          <div>
-            <div class="card-field-label">Vencimiento</div>
-            <input type="text" class="card-field-input" id="card-expiry"
-              placeholder="MM/AA" maxlength="5" autocomplete="cc-exp" />
+        <!-- Payment Method Selector Grid -->
+        <div class="pay-method-selector-label" style="font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px; margin-top:16px; font-weight:600;">Selecciona Método de Pago</div>
+        <div class="pay-methods-grid">
+          <button type="button" class="pay-method-btn" data-method="venmo">
+            <span class="pay-method-emoji">💜</span>
+            <span>Venmo</span>
+          </button>
+          <button type="button" class="pay-method-btn" data-method="cashapp">
+            <span class="pay-method-emoji">💚</span>
+            <span>Cash App</span>
+          </button>
+          <button type="button" class="pay-method-btn" data-method="applepay">
+            <span class="pay-method-emoji">🍎</span>
+            <span>Apple Pay</span>
+          </button>
+          <button type="button" class="pay-method-btn active" data-method="card">
+            <span class="pay-method-emoji">💳</span>
+            <span>Tarjeta</span>
+          </button>
+        </div>
+
+        <!-- Form Containers for Each Method -->
+        <div class="pay-details-container">
+          <!-- Card Payment Fields (Visible by default) -->
+          <div class="pay-method-fields" id="pay-fields-card">
+            <div class="card-field-label">Número de tarjeta</div>
+            <input type="text" class="card-field-input" id="card-number"
+              placeholder="4242 4242 4242 4242" maxlength="19" autocomplete="cc-number" />
+            <div class="card-row">
+              <div>
+                <div class="card-field-label">Vencimiento</div>
+                <input type="text" class="card-field-input" id="card-expiry"
+                  placeholder="MM/AA" maxlength="5" autocomplete="cc-exp" />
+              </div>
+              <div>
+                <div class="card-field-label">CVC</div>
+                <input type="text" class="card-field-input" id="card-cvc"
+                  placeholder="123" maxlength="4" autocomplete="cc-csc" />
+              </div>
+            </div>
+            <button class="pay-now-btn" id="pay-now-btn">Pagar <span class="pay-amount-label"></span></button>
           </div>
-          <div>
-            <div class="card-field-label">CVC</div>
-            <input type="text" class="card-field-input" id="card-cvc"
-              placeholder="123" maxlength="4" autocomplete="cc-csc" />
+
+          <!-- Venmo Fields (QR Code Placeholder + Pay button) -->
+          <div class="pay-method-fields" id="pay-fields-venmo" style="display:none;">
+            <div class="mock-qr-card venmo-theme">
+              <div class="qr-header">
+                <span class="qr-logo-emoji">💜</span>
+                <span class="qr-brand-name">Venmo</span>
+              </div>
+              <div class="qr-code-placeholder">
+                <svg class="qr-svg" viewBox="0 0 100 100" fill="currentColor">
+                  <rect x="0" y="0" width="30" height="30" rx="3" stroke-width="6" stroke="currentColor" fill="none" />
+                  <rect x="8" y="8" width="14" height="14" rx="1" fill="currentColor" />
+                  <rect x="70" y="0" width="30" height="30" rx="3" stroke-width="6" stroke="currentColor" fill="none" />
+                  <rect x="78" y="8" width="14" height="14" rx="1" fill="currentColor" />
+                  <rect x="0" y="70" width="30" height="30" rx="3" stroke-width="6" stroke="currentColor" fill="none" />
+                  <rect x="8" y="78" width="14" height="14" rx="1" fill="currentColor" />
+                  <rect x="40" y="10" width="8" height="8" rx="1" />
+                  <rect x="52" y="5" width="8" height="15" rx="1" />
+                  <rect x="40" y="24" width="15" height="8" rx="1" />
+                  <rect x="10" y="40" width="8" height="18" rx="1" />
+                  <rect x="24" y="45" width="12" height="8" rx="1" />
+                  <rect x="42" y="40" width="16" height="16" rx="1" />
+                  <rect x="70" y="40" width="8" height="8" rx="1" />
+                  <rect x="85" y="45" width="15" height="8" rx="1" />
+                  <rect x="62" y="52" width="8" height="16" rx="1" />
+                  <rect x="75" y="55" width="16" height="8" rx="1" />
+                  <rect x="40" y="70" width="8" height="20" rx="1" />
+                  <rect x="52" y="78" width="12" height="8" rx="1" />
+                  <rect x="70" y="70" width="15" height="8" rx="1" />
+                  <rect x="70" y="85" width="8" height="15" rx="1" />
+                </svg>
+              </div>
+              <p class="qr-text">Escanea para pagar — Demo</p>
+            </div>
+            <button class="pay-now-btn venmo-btn" id="pay-venmo-btn">Pagar con Venmo <span class="pay-amount-label"></span></button>
+          </div>
+
+          <!-- Cash App Fields (QR Code Placeholder + Pay button) -->
+          <div class="pay-method-fields" id="pay-fields-cashapp" style="display:none;">
+            <div class="mock-qr-card cashapp-theme">
+              <div class="qr-header">
+                <span class="qr-logo-emoji">💚</span>
+                <span class="qr-brand-name">Cash App</span>
+              </div>
+              <div class="qr-code-placeholder">
+                <svg class="qr-svg" viewBox="0 0 100 100" fill="currentColor">
+                  <rect x="0" y="0" width="30" height="30" rx="3" stroke-width="6" stroke="currentColor" fill="none" />
+                  <rect x="8" y="8" width="14" height="14" rx="1" fill="currentColor" />
+                  <rect x="70" y="0" width="30" height="30" rx="3" stroke-width="6" stroke="currentColor" fill="none" />
+                  <rect x="78" y="8" width="14" height="14" rx="1" fill="currentColor" />
+                  <rect x="0" y="70" width="30" height="30" rx="3" stroke-width="6" stroke="currentColor" fill="none" />
+                  <rect x="8" y="78" width="14" height="14" rx="1" fill="currentColor" />
+                  <rect x="40" y="10" width="8" height="8" rx="1" />
+                  <rect x="52" y="5" width="8" height="15" rx="1" />
+                  <rect x="40" y="24" width="15" height="8" rx="1" />
+                  <rect x="10" y="40" width="8" height="18" rx="1" />
+                  <rect x="24" y="45" width="12" height="8" rx="1" />
+                  <rect x="42" y="40" width="16" height="16" rx="1" />
+                  <rect x="70" y="40" width="8" height="8" rx="1" />
+                  <rect x="85" y="45" width="15" height="8" rx="1" />
+                  <rect x="62" y="52" width="8" height="16" rx="1" />
+                  <rect x="75" y="55" width="16" height="8" rx="1" />
+                  <rect x="40" y="70" width="8" height="20" rx="1" />
+                  <rect x="52" y="78" width="12" height="8" rx="1" />
+                  <rect x="70" y="70" width="15" height="8" rx="1" />
+                  <rect x="70" y="85" width="8" height="15" rx="1" />
+                </svg>
+              </div>
+              <p class="qr-text">Escanea para pagar — Demo</p>
+            </div>
+            <button class="pay-now-btn cashapp-btn" id="pay-cashapp-btn">Pagar con Cash App <span class="pay-amount-label"></span></button>
+          </div>
+
+          <!-- Apple Pay Fields (Apple Pay Button) -->
+          <div class="pay-method-fields" id="pay-fields-applepay" style="display:none;">
+            <button class="apple-pay-btn" id="pay-applepay-btn">
+              <svg class="apple-logo-svg" viewBox="0 0 18 24" fill="currentColor">
+                <path d="M15.22,12.92C15.22,9.97,17.65,8.47,17.76,8.4C16.38,6.4,14.23,6.1,13.48,6.07C11.68,5.88,9.94,7.12,9.02,7.12C8.11,7.12,6.7,6.09,5.23,6.12C3.31,6.15,1.56,7.24,0.57,8.96C-1.44,12.44,0.06,17.58,2,20.37C2.95,21.73,4.03,23.25,5.5,23.19C6.92,23.13,7.46,22.28,9.18,22.28C10.89,22.28,11.38,23.19,12.87,23.16C14.38,23.13,15.34,21.78,16.29,20.4C17.38,18.81,17.84,17.27,17.87,17.19C17.8,17.16,14.99,16.09,14.96,12.92ZM13.82,4C14.63,3.02,15.17,1.67,15.02,0.32C13.86,0.37,12.46,1.09,11.63,2.07C10.92,2.88,10.3,4.25,10.48,5.57C11.78,5.67,13.01,4.98,13.82,4Z"/>
+              </svg>
+              Pay
+            </button>
           </div>
         </div>
-        <button class="pay-now-btn" id="pay-now-btn">Pagar <span id="pay-now-amt"></span></button>
       </div>
+    </div>
+  </div>
 
-      <!-- STEP 4: Confirmation -->
-      <div class="checkout-step" id="step-confirm">
-        <span class="confirm-icon">✨🎉</span>
-        <div class="confirm-title">¡Pago confirmado!</div>
-        <p class="confirm-sub">Tu orden va directo a la cocina.<br>Don Lupe ya la está preparando.</p>
-        <div class="confirm-badge">✅ Orden enviada a cocina con éxito</div>
-        <button class="send-order-btn" id="confirm-done-btn">Hacer otra orden 🌮</button>
+  <!-- ── SUCCESS OVERLAY (Fullscreen Modal) ──────────────── -->
+  <div class="success-overlay" id="success-overlay">
+    <div class="success-card">
+      <span class="success-fire-anim">🔥</span>
+      <h2 class="success-title">¡Orden en camino! <span>🔥</span></h2>
+      <p class="success-message">¡Tu orden está en camino a la cocina! Don Lupe ya la está preparando. 🌮</p>
+      
+      <!-- Receipt Detail -->
+      <div class="success-receipt">
+        <div class="receipt-header">
+          <span class="receipt-ordernum" id="success-order-num">#0000</span>
+          <span class="receipt-stand" id="success-receipt-stand">Stand #—</span>
+        </div>
+        <div class="receipt-items-title">Tu Pedido:</div>
+        <div id="success-receipt-items">
+          <!-- Dynamic item rows -->
+        </div>
+        <div class="receipt-total-row">
+          <span class="receipt-total-label">Total Pagado:</span>
+          <span class="receipt-total-val" id="success-receipt-total">$0.00</span>
+        </div>
       </div>
+      
+      <button class="send-order-btn success-btn" id="success-done-btn">Hacer otra orden 🌮</button>
     </div>
   </div>
 
@@ -1231,8 +1649,21 @@
       </div>`;
       summaryEl.innerHTML = html;
 
-      // Set amount on card step
-      document.getElementById('pay-now-amt').textContent = '$' + totalAmt.toFixed(2);
+      // Set amount on active options
+      const formattedAmt = '$' + totalAmt.toFixed(2);
+      document.querySelectorAll('.pay-amount-label').forEach(el => el.textContent = formattedAmt);
+
+      // Default selector state to Card
+      selectedPaymentMethod = 'card';
+      document.querySelectorAll('.pay-method-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.method === 'card');
+      });
+      document.querySelectorAll('.pay-method-fields').forEach(f => {
+        f.style.display = f.id === 'pay-fields-card' ? 'block' : 'none';
+      });
+
+      // Clear card input values when payment screen is loaded
+      ['card-number','card-expiry','card-cvc'].forEach(id => document.getElementById(id).value = '');
 
       showStep('payment');
     }
@@ -1240,15 +1671,17 @@
     // Back from payment → stand
     document.getElementById('back-to-stand').addEventListener('click', () => showStep('stand'));
 
-    // Pay with Card → card step
-    document.getElementById('pay-with-card-btn').addEventListener('click', () => {
-      // Reset card fields
-      ['card-number','card-expiry','card-cvc'].forEach(id => document.getElementById(id).value = '');
-      showStep('card');
+    // Payment method selector click listeners
+    let selectedPaymentMethod = 'card';
+    document.querySelectorAll('.pay-method-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.pay-method-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        selectedPaymentMethod = this.dataset.method;
+        document.querySelectorAll('.pay-method-fields').forEach(f => f.style.display = 'none');
+        document.getElementById('pay-fields-' + selectedPaymentMethod).style.display = 'block';
+      });
     });
-
-    // Back from card → payment
-    document.getElementById('back-to-payment').addEventListener('click', () => showStep('payment'));
 
     // Card number formatting
     document.getElementById('card-number').addEventListener('input', function() {
@@ -1264,22 +1697,39 @@
       this.value = this.value.replace(/\D/g,'').slice(0,4);
     });
 
-    // Pay Now → processPayment
-    document.getElementById('pay-now-btn').addEventListener('click', async function() {
+    // Unified Payment Submission
+    async function handlePaymentSubmit(btn) {
       const stand      = document.getElementById('stand-input').value.trim();
       const totalAmt   = Object.values(cart).reduce((s, i) => s + i.price * i.qty, 0);
       const orderItems = Object.entries(cart).map(([name, {price, qty}]) => ({name, price, qty}));
 
-      // Show spinner
-      this.disabled = true;
-      this.innerHTML = '<div class="spinner"></div> Procesando...';
+      if (selectedPaymentMethod === 'card') {
+        const num = document.getElementById('card-number').value.trim();
+        const exp = document.getElementById('card-expiry').value.trim();
+        const cvc = document.getElementById('card-cvc').value.trim();
+        if (num.length < 19 || exp.length < 5 || cvc.length < 3) {
+          alert('Por favor completa los datos de tu tarjeta demo.');
+          return;
+        }
+      }
 
-      const result = await processPayment(totalAmt, orderItems, stand);
+      // Show spinner on the current button
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<div class="spinner" style="border-top-color: currentColor;"></div> Procesando...';
+
+      const result = await processPayment(totalAmt, orderItems, stand, selectedPaymentMethod);
 
       if (result.success) {
         // Save to localStorage
         const orders = JSON.parse(localStorage.getItem('donlupe_orders') || '[]');
-        const orderNum = orders.length > 0 ? orders[orders.length - 1].num + 1 : 1;
+        
+        // Generate random 4-digit order number (1000 to 9999) without collision
+        let orderNum;
+        do {
+          orderNum = Math.floor(1000 + Math.random() * 9000);
+        } while (orders.some(o => o.num === orderNum));
+
         orders.push({
           num: orderNum,
           ts: new Date().toISOString(),
@@ -1296,137 +1746,59 @@
         Object.keys(cart).forEach(k => delete cart[k]);
         updateCartUI();
 
-        // Show confirmation
-        showStep('confirm');
+        // Populate receipt inside success modal
+        document.getElementById('success-order-num').textContent = '#' + orderNum;
+        document.getElementById('success-receipt-stand').textContent = 'Stand #' + stand;
+        
+        const itemsList = document.getElementById('success-receipt-items');
+        itemsList.innerHTML = orderItems.map(item => 
+          `<div class="receipt-item-row">
+            <span><span class="receipt-item-qty">${item.qty}×</span> ${item.name}</span>
+            <span>$${(item.price * item.qty).toFixed(2)}</span>
+          </div>`
+        ).join('');
+        
+        document.getElementById('success-receipt-total').textContent = '$' + totalAmt.toFixed(2);
+
+        // Close checkout overlay
+        closeCheckout();
+
+        // Show fullscreen success modal
+        document.getElementById('success-overlay').classList.add('open');
 
         // Reset button for next use
-        this.disabled = false;
-        this.innerHTML = 'Pagar <span id="pay-now-amt">$0.00</span>';
+        btn.disabled = false;
+        btn.innerHTML = originalText;
       }
+    }
+
+    // Bind event listeners to pay buttons
+    document.getElementById('pay-now-btn').addEventListener('click', function() {
+      handlePaymentSubmit(this);
+    });
+    document.getElementById('pay-venmo-btn').addEventListener('click', function() {
+      handlePaymentSubmit(this);
+    });
+    document.getElementById('pay-cashapp-btn').addEventListener('click', function() {
+      handlePaymentSubmit(this);
+    });
+    document.getElementById('pay-applepay-btn').addEventListener('click', function() {
+      handlePaymentSubmit(this);
     });
 
-    // Done → close checkout
-    document.getElementById('confirm-done-btn').addEventListener('click', () => {
-      closeCheckout();
+    // Close success overlay listener
+    document.getElementById('success-done-btn').addEventListener('click', () => {
+      document.getElementById('success-overlay').classList.remove('open');
     });
 
     /* ─────────────────────────────────────────────────────────
        processPayment — structured as a real-Stripe-ready stub
     ───────────────────────────────────────────────────────── */
-    async function processPayment(orderTotal, orderItems, standNumber) {
-      // TODO: replace with real Stripe Checkout session call
-      // const res = await fetch('/api/create-checkout-session', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ orderItems, standNumber })
-      // });
-      // const session = await res.json();
-      // window.location.href = session.url;
-
+    async function processPayment(orderTotal, orderItems, standNumber, method) {
       // DEMO MODE — simulated success:
       await new Promise(resolve => setTimeout(resolve, 1500));
-      return { success: true, paymentMethod: 'demo_card' };
+      return { success: true, paymentMethod: 'demo_' + method };
     }
-
-    /* ═══════════════════════════════════════════════════════
-       TABS — smooth scroll to section
-    ═══════════════════════════════════════════════════════ */
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
-        this.classList.add('active');
-        this.setAttribute('aria-selected', 'true');
-        const target = document.getElementById('cat-' + this.dataset.cat);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-
-    // Highlight active tab on scroll
-    const sections = document.querySelectorAll('.menu-section');
-    const tabBtns  = document.querySelectorAll('.tab-btn');
-    const scrollObs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id.replace('cat-', '');
-          tabBtns.forEach(b => {
-            const active = b.dataset.cat === id;
-            b.classList.toggle('active', active);
-            b.setAttribute('aria-selected', active ? 'true' : 'false');
-          });
-        }
-      });
-    }, { threshold: 0.4 });
-    sections.forEach(s => scrollObs.observe(s));
-
-    /* ═══════════════════════════════════════════════════════
-       LUPE CHAT
-    ═══════════════════════════════════════════════════════ */
-    const LUPE_SYSTEM = `You are Lupe, the virtual assistant for El Rincón de Don Lupe, a street food vendor in Sacramento. You speak in a warm, funny mix of Spanish and English (Spanglish). You know the full menu: Tacos (Birria $3.50, Al Pastor $3.00, Carnitas $3.00, Vegano $2.50), Burritos (Supremo $9.00, California $8.50, Bowl $8.00), Antojitos (Quesadilla $6.00, Torta Ahogada $8.00, Elote en Vaso $4.00, Nachos $7.00), Bebidas (Horchata $2.50, Jamaica $2.50, Limonada $2.00, Agua Mineral $1.50). Hours: Tue-Fri 11am-9pm, Sat-Sun 9am-10pm, Monday closed. Location: Mercado Central, Stall #14, Sacramento. Help customers pick what to eat, answer questions, and make them hungry. Keep responses short and fun.`;
-    const lupeMessages = [{ role: 'system', content: LUPE_SYSTEM }];
-    let lupeOpen = false, lupeTyping = false;
-
-    const lupeFab   = document.getElementById('lupe-fab');
-    const lupePanel = document.getElementById('lupe-panel');
-    const lupeClose = document.getElementById('lupe-close');
-    const lupeMsgs  = document.getElementById('lupe-messages');
-    const lupeInput = document.getElementById('lupe-input');
-    const lupeSend  = document.getElementById('lupe-send');
-
-    function toggleLupe(open) {
-      lupeOpen = open;
-      lupePanel.classList.toggle('open', open);
-      if (open && lupeMsgs.children.length === 0) appendMsg('assistant', '¡Bienvenido al menú! 🌮 I\'m Lupe. ¿Qué vas a ordenar hoy? I can help you pick the best dish!');
-      if (open) setTimeout(() => lupeInput.focus(), 200);
-    }
-
-    lupeFab.addEventListener('click', () => toggleLupe(!lupeOpen));
-    lupeClose.addEventListener('click', () => toggleLupe(false));
-
-    function appendMsg(role, text) {
-      const el = document.createElement('div');
-      el.className = `chat-msg ${role}`;
-      el.textContent = text;
-      lupeMsgs.appendChild(el);
-      lupeMsgs.scrollTop = lupeMsgs.scrollHeight;
-      return el;
-    }
-
-    async function sendLupe() {
-      const text = lupeInput.value.trim();
-      if (!text || lupeTyping) return;
-      lupeInput.value = '';
-      appendMsg('user', text);
-      lupeMessages.push({ role: 'user', content: text });
-      lupeTyping = true;
-      lupeSend.disabled = true;
-      const typingEl = appendMsg('typing', 'Lupe is typing...');
-      try {
-        const res = await fetch('https://maya-cantina-portal.vercel.app/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: lupeMessages })
-        });
-        const data = await res.json();
-        const reply = data?.choices?.[0]?.message?.content || data?.message || data?.content || '¡Ay! Error. Try again 😅';
-        typingEl.remove();
-        appendMsg('assistant', reply);
-        lupeMessages.push({ role: 'assistant', content: reply });
-      } catch {
-        typingEl.remove();
-        appendMsg('assistant', '¡Ay caramba! Can\'t connect. Try again en un momento 🙏');
-      } finally {
-        lupeTyping = false;
-        lupeSend.disabled = false;
-        lupeInput.focus();
-      }
-    }
-
-    lupeSend.addEventListener('click', sendLupe);
-    lupeInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendLupe(); });
-  </script>
-</body>
-</html>
-
 
     /* ═══════════════════════════════════════════════════════
        TABS — smooth scroll to section
