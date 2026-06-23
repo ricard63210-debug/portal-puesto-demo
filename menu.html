@@ -1835,122 +1835,107 @@
 
   <script>
     /* ═══════════════════════════════════════════════════════
-       INGREDIENT DATA
+       INGREDIENT DATA (PNG Images)
     ═══════════════════════════════════════════════════════ */
-    const EMOJI_CDN = 'https://emojicdn.elk.sh/';
-    const emojiImg = (emoji) => `${EMOJI_CDN}${encodeURIComponent(emoji)}?style=apple`;
+    const getIngImgPath = (imgName) => `images/ingredients/${imgName}`;
 
     const ingredientData = {
       'Taco de Birria': [
-        { name: 'Tortilla',      emoji: '🫓' },
-        { name: 'Birria',        emoji: '🥩' },
-        { name: 'Cebolla',       emoji: '🧅' },
-        { name: 'Cilantro',      emoji: '🌿' },
-        { name: 'Consommé',      emoji: '🍲' },
-        { name: 'Salsa roja',    emoji: '🫙' },
+        { name: 'Tortilla de maíz', image: 'tortilla-maiz.png' },
+        { name: 'Birria',           image: 'birria.png' },
+        { name: 'Cebolla',          image: 'cebolla.png' },
+        { name: 'Cilantro',         image: 'cilantro.png' },
+        { name: 'Consommé',         image: 'consomme.png' },
+        { name: 'Salsa roja',       image: 'salsa-verde.png' },
       ],
       'Taco Al Pastor': [
-        { name: 'Tortilla',      emoji: '🫓' },
-        { name: 'Carne al pastor', emoji: '🥩' },
-        { name: 'Cebolla picada', emoji: '🧅' },
-        { name: 'Cilantro',      emoji: '🌿' },
-        { name: 'Piña',          emoji: '🍍' },
-        { name: 'Salsa roja',    emoji: '🫙' },
+        { name: 'Tortilla de maíz', image: 'tortilla-maiz.png' },
+        { name: 'Carne al pastor',  image: 'pastor.png' },
+        { name: 'Cebolla picada',   image: 'cebolla.png' },
+        { name: 'Cilantro',         image: 'cilantro.png' },
+        { name: 'Piña',             image: 'pina.png' },
+        { name: 'Salsa roja',       image: 'salsa-verde.png' },
       ],
       'Taco de Carnitas': [
-        { name: 'Tortilla',      emoji: '🫓' },
-        { name: 'Carnitas',      emoji: '🐷' },
-        { name: 'Cebolla',       emoji: '🧅' },
-        { name: 'Cilantro',      emoji: '🌿' },
-        { name: 'Limón',         emoji: '🍋' },
-        { name: 'Salsa verde',   emoji: '🟢' },
+        { name: 'Tortilla de maíz', image: 'tortilla-maiz.png' },
+        { name: 'Carnitas',         image: 'carnitas.png' },
+        { name: 'Cebolla',          image: 'cebolla.png' },
+        { name: 'Cilantro',         image: 'cilantro.png' },
+        { name: 'Salsa verde',      image: 'salsa-verde.png' },
       ],
       'Taco Vegano': [
-        { name: 'Tortilla',      emoji: '🫓' },
-        { name: 'Nopales',       emoji: '🌵' },
-        { name: 'Frijoles',      emoji: '🫘' },
-        { name: 'Pimiento',      emoji: '🌶️' },
-        { name: 'Aguacate',      emoji: '🥑' },
-        { name: 'Salsa chipotle', emoji: '🫙' },
+        { name: 'Tortilla de maíz', image: 'tortilla-maiz.png' },
+        { name: 'Nopales',          image: 'nopales.png' },
+        { name: 'Frijoles',         image: 'frijoles.png' },
+        { name: 'Aguacate',         image: 'guacamole.png' },
+        { name: 'Chile serrano',    image: 'chile.png' },
       ],
       'Burrito Supremo': [
-        { name: 'Tortilla flour', emoji: '🫓' },
-        { name: 'Carne asada',   emoji: '🥩' },
-        { name: 'Arroz',         emoji: '🍚' },
-        { name: 'Frijoles',      emoji: '🫘' },
-        { name: 'Guacamole',     emoji: '🥑' },
-        { name: 'Crema',         emoji: '🍦' },
-        { name: 'Pico de gallo', emoji: '🍅' },
-        { name: 'Queso',         emoji: '🧀' },
+        { name: 'Tortilla de harina', image: 'tortilla-harina.png' },
+        { name: 'Carne asada',      image: 'carne-asada.png' },
+        { name: 'Arroz',            image: 'arroz.png' },
+        { name: 'Frijoles',         image: 'frijoles.png' },
+        { name: 'Guacamole',        image: 'guacamole.png' },
+        { name: 'Crema',            image: 'crema.png' },
+        { name: 'Jitomate',         image: 'jitomate.png' },
+        { name: 'Queso',            image: 'queso.png' },
       ],
       'Burrito California': [
-        { name: 'Tortilla flour', emoji: '🫓' },
-        { name: 'Carne asada',   emoji: '🥩' },
-        { name: 'Papas fritas',  emoji: '🍟' },
-        { name: 'Guacamole',     emoji: '🥑' },
-        { name: 'Queso',         emoji: '🧀' },
+        { name: 'Tortilla de harina', image: 'tortilla-harina.png' },
+        { name: 'Carne asada',      image: 'carne-asada.png' },
+        { name: 'Guacamole',        image: 'guacamole.png' },
+        { name: 'Queso',            image: 'queso.png' },
       ],
       'Burrito Bowl': [
-        { name: 'Arroz',         emoji: '🍚' },
-        { name: 'Proteína',      emoji: '🥩' },
-        { name: 'Frijoles',      emoji: '🫘' },
-        { name: 'Lechuga',       emoji: '🥬' },
-        { name: 'Pico de gallo', emoji: '🍅' },
-        { name: 'Guacamole',     emoji: '🥑' },
-        { name: 'Crema',         emoji: '🍦' },
+        { name: 'Arroz',            image: 'arroz.png' },
+        { name: 'Carne asada',      image: 'carne-asada.png' },
+        { name: 'Frijoles',         image: 'frijoles.png' },
+        { name: 'Lechuga',          image: 'lechuga.png' },
+        { name: 'Jitomate',         image: 'jitomate.png' },
+        { name: 'Guacamole',        image: 'guacamole.png' },
+        { name: 'Crema',            image: 'crema.png' },
       ],
       'Quesadilla': [
-        { name: 'Tortilla flour', emoji: '🫓' },
-        { name: 'Queso Oaxaca',  emoji: '🧀' },
-        { name: 'Relleno',       emoji: '🥩' },
-        { name: 'Crema',         emoji: '🍦' },
-        { name: 'Salsa verde',   emoji: '🟢' },
+        { name: 'Tortilla de harina', image: 'tortilla-harina.png' },
+        { name: 'Queso Oaxaca',     image: 'queso.png' },
+        { name: 'Pollo asado',      image: 'pollo.png' },
+        { name: 'Crema',            image: 'crema.png' },
+        { name: 'Salsa verde',      image: 'salsa-verde.png' },
       ],
       'Torta Ahogada': [
-        { name: 'Birote',        emoji: '🥖' },
-        { name: 'Carnitas',      emoji: '🐷' },
-        { name: 'Frijoles',      emoji: '🫘' },
-        { name: 'Cebolla',       emoji: '🧅' },
-        { name: 'Salsa de tomate-arbol', emoji: '🍅' },
-        { name: 'Limón',         emoji: '🍋' },
+        { name: 'Pan Birote',       image: 'tortilla-harina.png' },
+        { name: 'Carnitas',         image: 'carnitas.png' },
+        { name: 'Frijoles',         image: 'frijoles.png' },
+        { name: 'Cebolla',          image: 'cebolla.png' },
+        { name: 'Consommé',         image: 'consomme.png' },
       ],
       'Elote en Vaso': [
-        { name: 'Elote',         emoji: '🌽' },
-        { name: 'Mayonesa',      emoji: '🥄' },
-        { name: 'Queso cotija',  emoji: '🧀' },
-        { name: 'Limón',         emoji: '🍋' },
-        { name: 'Chile en polvo', emoji: '🌶️' },
+        { name: 'Elote',            image: 'arroz.png' },
+        { name: 'Mayonesa',         image: 'crema.png' },
+        { name: 'Queso cotija',     image: 'queso.png' },
+        { name: 'Chile en polvo',   image: 'chile.png' },
       ],
       'Nachos': [
-        { name: 'Totopos',       emoji: '🍟' },
-        { name: 'Frijoles',      emoji: '🫘' },
-        { name: 'Queso',         emoji: '🧀' },
-        { name: 'Jalapeños',     emoji: '🌶️' },
-        { name: 'Crema',         emoji: '🍦' },
-        { name: 'Pico de gallo', emoji: '🍅' },
+        { name: 'Totopos',          image: 'tortilla-maiz.png' },
+        { name: 'Frijoles',         image: 'frijoles.png' },
+        { name: 'Queso',            image: 'queso.png' },
+        { name: 'Jalapeños',        image: 'chile.png' },
+        { name: 'Crema',            image: 'crema.png' },
+        { name: 'Jitomate',         image: 'jitomate.png' },
       ],
       'Horchata': [
-        { name: 'Arroz',         emoji: '🍚' },
-        { name: 'Canela',        emoji: '🪵' },
-        { name: 'Leche',         emoji: '🥛' },
-        { name: 'Azúcar',        emoji: '🍬' },
-        { name: 'Hielo',         emoji: '🧊' },
+        { name: 'Arroz',            image: 'arroz.png' },
+        { name: 'Leche',            image: 'crema.png' },
       ],
       'Agua de Jamaica': [
-        { name: 'Flor de jamaica', emoji: '🌺' },
-        { name: 'Azúcar',        emoji: '🍬' },
-        { name: 'Limón',         emoji: '🍋' },
-        { name: 'Hielo',         emoji: '🧊' },
+        { name: 'Flor de jamaica',  image: 'consomme.png' },
       ],
       'Limonada': [
-        { name: 'Limón',         emoji: '🍋' },
-        { name: 'Menta',         emoji: '🌿' },
-        { name: 'Azúcar',        emoji: '🍬' },
-        { name: 'Hielo',         emoji: '🧊' },
+        { name: 'Limón',            image: 'salsa-verde.png' },
+        { name: 'Menta',            image: 'cilantro.png' },
       ],
       'Agua Mineral': [
-        { name: 'Agua mineral',  emoji: '💧' },
-        { name: 'Gas',           emoji: '🫧' },
+        { name: 'Agua mineral',     image: 'consomme.png' },
       ],
     };
 
@@ -1992,7 +1977,7 @@
         // Offset each ingredient vertically so they stack visibly
         layer.style.top = (i * -8) + 'px';
         layer.innerHTML = `
-          <img src="${emojiImg(ing.emoji)}" alt="${ing.name}" loading="eager" />
+          <img src="${getIngImgPath(ing.image)}" alt="${ing.name}" loading="eager" />
           <span class="ingredient-label">${ing.name}</span>
         `;
         stack.appendChild(layer);
@@ -2004,7 +1989,7 @@
       ingredients.forEach((ing, i) => {
         const chip = document.createElement('span');
         chip.className = 'detail-ing-chip';
-        chip.innerHTML = `<img src="${emojiImg(ing.emoji)}" alt="" /> ${ing.name}`;
+        chip.innerHTML = `<img src="${getIngImgPath(ing.image)}" alt="" /> ${ing.name}`;
         ingList.appendChild(chip);
       });
 
