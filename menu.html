@@ -718,6 +718,14 @@
       border-color: var(--white);
       box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
     }
+    .pay-method-btn[data-method="zelle"].active {
+      background: rgba(116, 20, 202, 0.12);
+      border-color: #7414CA;
+      box-shadow: 0 4px 12px rgba(116, 20, 202, 0.2);
+    }
+    .pay-method-btn[data-method="card"] {
+      grid-column: span 2;
+    }
 
     /* QR Code Card Stylings */
     .mock-qr-card {
@@ -741,6 +749,10 @@
       border-color: rgba(0, 214, 80, 0.35);
       background: linear-gradient(180deg, rgba(0, 214, 80, 0.04) 0%, transparent 100%);
     }
+    .mock-qr-card.zelle-theme {
+      border-color: rgba(116, 20, 202, 0.35);
+      background: linear-gradient(180deg, rgba(116, 20, 202, 0.04) 0%, transparent 100%);
+    }
     .qr-header {
       display: flex;
       align-items: center;
@@ -756,6 +768,7 @@
     }
     .mock-qr-card.venmo-theme .qr-header { color: #8F55EC; }
     .mock-qr-card.cashapp-theme .qr-header { color: #10E763; }
+    .mock-qr-card.zelle-theme .qr-header { color: #A450FE; }
     
     .qr-code-placeholder {
       background: #ffffff;
@@ -790,6 +803,13 @@
       color: var(--ink);
     }
     .pay-now-btn.cashapp-btn:hover {
+      filter: brightness(1.15);
+    }
+    .pay-now-btn.zelle-btn {
+      background: #7414CA;
+      color: var(--white);
+    }
+    .pay-now-btn.zelle-btn:hover {
       filter: brightness(1.15);
     }
 
@@ -1340,6 +1360,10 @@
             <span class="pay-method-emoji">🍎</span>
             <span>Apple Pay</span>
           </button>
+          <button type="button" class="pay-method-btn" data-method="zelle">
+            <span class="pay-method-emoji">💜</span>
+            <span>Zelle</span>
+          </button>
           <button type="button" class="pay-method-btn active" data-method="card">
             <span class="pay-method-emoji">💳</span>
             <span>Tarjeta</span>
@@ -1448,6 +1472,43 @@
               </svg>
               Pay
             </button>
+          </div>
+
+          <!-- Zelle Fields (QR Code Placeholder + Pay button) -->
+          <div class="pay-method-fields" id="pay-fields-zelle" style="display:none;">
+            <div class="mock-qr-card zelle-theme">
+              <div class="qr-header">
+                <span class="qr-logo-emoji">💜</span>
+                <span class="qr-brand-name">Zelle</span>
+              </div>
+              <div class="qr-code-placeholder">
+                <svg class="qr-svg" viewBox="0 0 100 100" fill="currentColor">
+                  <rect x="0" y="0" width="30" height="30" rx="3" stroke-width="6" stroke="currentColor" fill="none" />
+                  <rect x="8" y="8" width="14" height="14" rx="1" fill="currentColor" />
+                  <rect x="70" y="0" width="30" height="30" rx="3" stroke-width="6" stroke="currentColor" fill="none" />
+                  <rect x="78" y="8" width="14" height="14" rx="1" fill="currentColor" />
+                  <rect x="0" y="70" width="30" height="30" rx="3" stroke-width="6" stroke="currentColor" fill="none" />
+                  <rect x="8" y="78" width="14" height="14" rx="1" fill="currentColor" />
+                  <rect x="40" y="10" width="8" height="8" rx="1" />
+                  <rect x="52" y="5" width="8" height="15" rx="1" />
+                  <rect x="40" y="24" width="15" height="8" rx="1" />
+                  <rect x="10" y="40" width="8" height="18" rx="1" />
+                  <rect x="24" y="45" width="12" height="8" rx="1" />
+                  <rect x="42" y="40" width="16" height="16" rx="1" />
+                  <rect x="70" y="40" width="8" height="8" rx="1" />
+                  <rect x="85" y="45" width="15" height="8" rx="1" />
+                  <rect x="62" y="52" width="8" height="16" rx="1" />
+                  <rect x="75" y="55" width="16" height="8" rx="1" />
+                  <rect x="40" y="70" width="8" height="20" rx="1" />
+                  <rect x="52" y="78" width="12" height="8" rx="1" />
+                  <rect x="70" y="70" width="15" height="8" rx="1" />
+                  <rect x="70" y="85" width="8" height="15" rx="1" />
+                </svg>
+              </div>
+              <p class="qr-text" style="color: var(--white); font-weight: 600; margin-top: 4px;">ricard63210@gmail.com</p>
+              <p class="qr-text">Ricardo Orozco Hurtado</p>
+            </div>
+            <button class="pay-now-btn zelle-btn" id="pay-zelle-btn">Pagar con Zelle <span class="pay-amount-label"></span></button>
           </div>
         </div>
       </div>
@@ -1702,16 +1763,8 @@
       const stand      = document.getElementById('stand-input').value.trim();
       const totalAmt   = Object.values(cart).reduce((s, i) => s + i.price * i.qty, 0);
       const orderItems = Object.entries(cart).map(([name, {price, qty}]) => ({name, price, qty}));
+      // Card validation removed for demo/testing checkout
 
-      if (selectedPaymentMethod === 'card') {
-        const num = document.getElementById('card-number').value.trim();
-        const exp = document.getElementById('card-expiry').value.trim();
-        const cvc = document.getElementById('card-cvc').value.trim();
-        if (num.length < 19 || exp.length < 5 || cvc.length < 3) {
-          alert('Por favor completa los datos de tu tarjeta demo.');
-          return;
-        }
-      }
 
       // Show spinner on the current button
       const originalText = btn.innerHTML;
@@ -1783,6 +1836,9 @@
       handlePaymentSubmit(this);
     });
     document.getElementById('pay-applepay-btn').addEventListener('click', function() {
+      handlePaymentSubmit(this);
+    });
+    document.getElementById('pay-zelle-btn').addEventListener('click', function() {
       handlePaymentSubmit(this);
     });
 
