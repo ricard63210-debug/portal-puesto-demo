@@ -1126,29 +1126,36 @@
     /* ── INGREDIENT STACK CONTAINER ──────────────────── */
     .ingredient-stack {
       position: relative;
-      width: 180px;
-      height: 180px;
-      margin: -40px auto 12px;
+      width: 200px;
+      margin: -30px auto 16px;
       z-index: 2;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
     }
 
     .ingredient-layer {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 80%;
+      height: 22px;
+      border-radius: 50%;
       opacity: 0;
-      transform: translateY(-120px);
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+      transform: translateY(-140px) scale(0.7);
+      margin-top: -8px;
+      position: relative;
     }
 
-    .ingredient-layer img {
-      width: 72px;
-      height: 72px;
-      object-fit: contain;
-      pointer-events: none;
+    .ingredient-layer:first-child {
+      margin-top: 0;
+    }
+
+    .ingredient-circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      box-shadow:
+        0 2px 6px rgba(0,0,0,0.35),
+        inset 0 2px 4px rgba(255,255,255,0.15),
+        inset 0 -2px 4px rgba(0,0,0,0.2);
     }
 
     .ingredient-layer.animate {
@@ -1158,14 +1165,14 @@
     @keyframes ingredientDrop {
       0% {
         opacity: 0;
-        transform: translateY(-120px) scale(0.7);
+        transform: translateY(-140px) scale(0.7);
       }
       50% {
         opacity: 1;
-        transform: translateY(8px) scale(1.05);
+        transform: translateY(6px) scale(1.06);
       }
       70% {
-        transform: translateY(-4px) scale(0.98);
+        transform: translateY(-3px) scale(0.97);
       }
       85% {
         transform: translateY(2px) scale(1.01);
@@ -1176,21 +1183,21 @@
       }
     }
 
-    .ingredient-label {
+    .ingredient-label-float {
       position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 10px;
+      right: -8px;
+      top: 50%;
+      transform: translateX(100%) translateY(-50%);
+      font-size: 9px;
       font-weight: 600;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       white-space: nowrap;
       opacity: 0;
-      transition: opacity 0.3s ease 0.2s;
+      transition: opacity 0.3s ease 0.15s;
     }
-    .ingredient-layer.animate .ingredient-label { opacity: 1; }
+    .ingredient-layer.animate .ingredient-label-float { opacity: 1; }
 
     .detail-body {
       padding: 0 20px;
@@ -1240,11 +1247,11 @@
     .detail-ing-chip {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 20px;
-      padding: 5px 12px 5px 6px;
+      padding: 5px 12px 5px 8px;
       font-size: 12px;
       color: var(--white);
       font-weight: 500;
@@ -1255,6 +1262,13 @@
     .detail-ing-chip.visible {
       opacity: 1;
       transform: translateY(0);
+    }
+    .detail-ing-chip-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.2);
     }
     .detail-ing-chip img {
       width: 20px;
@@ -1835,107 +1849,112 @@
 
   <script>
     /* ═══════════════════════════════════════════════════════
-       INGREDIENT DATA (PNG Images)
+       INGREDIENT DATA (Pure CSS Colored Circles)
     ═══════════════════════════════════════════════════════ */
-    const getIngImgPath = (imgName) => `/images/ingredients/${imgName}`;
-
     const ingredientData = {
       'Taco de Birria': [
-        { name: 'Tortilla de maíz', image: 'tortilla-maiz.png' },
-        { name: 'Birria',           image: 'birria.png' },
-        { name: 'Cebolla',          image: 'cebolla.png' },
-        { name: 'Cilantro',         image: 'cilantro.png' },
-        { name: 'Consommé',         image: 'consomme.png' },
-        { name: 'Salsa roja',       image: 'salsa-verde.png' },
+        { name: 'Tortilla',      color: '#E8D5A3' },
+        { name: 'Birria',        color: '#8B2500' },
+        { name: 'Cebolla',       color: '#F0EDE5' },
+        { name: 'Cilantro',      color: '#4A7C3F' },
+        { name: 'Consommé',      color: '#A0522D' },
+        { name: 'Salsa roja',    color: '#CC2200' },
       ],
       'Taco Al Pastor': [
-        { name: 'Tortilla de maíz', image: 'tortilla-maiz.png' },
-        { name: 'Carne al pastor',  image: 'pastor.png' },
-        { name: 'Cebolla picada',   image: 'cebolla.png' },
-        { name: 'Cilantro',         image: 'cilantro.png' },
-        { name: 'Piña',             image: 'pina.png' },
-        { name: 'Salsa roja',       image: 'salsa-verde.png' },
+        { name: 'Tortilla',      color: '#E8D5A3' },
+        { name: 'Carne al pastor', color: '#D44B20' },
+        { name: 'Cebolla',       color: '#F0EDE5' },
+        { name: 'Cilantro',      color: '#4A7C3F' },
+        { name: 'Piña',          color: '#F5D547' },
+        { name: 'Salsa roja',    color: '#A01010' },
       ],
       'Taco de Carnitas': [
-        { name: 'Tortilla de maíz', image: 'tortilla-maiz.png' },
-        { name: 'Carnitas',         image: 'carnitas.png' },
-        { name: 'Cebolla',          image: 'cebolla.png' },
-        { name: 'Cilantro',         image: 'cilantro.png' },
-        { name: 'Salsa verde',      image: 'salsa-verde.png' },
+        { name: 'Tortilla',      color: '#E8D5A3' },
+        { name: 'Carnitas',      color: '#B07840' },
+        { name: 'Cebolla',       color: '#F0EDE5' },
+        { name: 'Cilantro',      color: '#4A7C3F' },
+        { name: 'Salsa verde',   color: '#5B8C3E' },
       ],
       'Taco Vegano': [
-        { name: 'Tortilla de maíz', image: 'tortilla-maiz.png' },
-        { name: 'Nopales',          image: 'nopales.png' },
-        { name: 'Frijoles',         image: 'frijoles.png' },
-        { name: 'Aguacate',         image: 'guacamole.png' },
-        { name: 'Chile serrano',    image: 'chile.png' },
+        { name: 'Tortilla',      color: '#E8D5A3' },
+        { name: 'Nopales',       color: '#6B8E3A' },
+        { name: 'Frijoles',      color: '#2C1810' },
+        { name: 'Aguacate',      color: '#6AAF50' },
+        { name: 'Chile serrano', color: '#3D8B37' },
       ],
       'Burrito Supremo': [
-        { name: 'Tortilla de harina', image: 'tortilla-harina.png' },
-        { name: 'Carne asada',      image: 'carne-asada.png' },
-        { name: 'Arroz',            image: 'arroz.png' },
-        { name: 'Frijoles',         image: 'frijoles.png' },
-        { name: 'Guacamole',        image: 'guacamole.png' },
-        { name: 'Crema',            image: 'crema.png' },
-        { name: 'Jitomate',         image: 'jitomate.png' },
-        { name: 'Queso',            image: 'queso.png' },
+        { name: 'Tortilla',      color: '#F0E4CC' },
+        { name: 'Carne asada',   color: '#5C3A28' },
+        { name: 'Arroz',         color: '#FAF5E8' },
+        { name: 'Frijoles',      color: '#2C1810' },
+        { name: 'Guacamole',     color: '#6AAF50' },
+        { name: 'Crema',         color: '#FAF8F0' },
+        { name: 'Pico de gallo', color: '#E04030' },
+        { name: 'Queso',         color: '#F5D980' },
       ],
       'Burrito California': [
-        { name: 'Tortilla de harina', image: 'tortilla-harina.png' },
-        { name: 'Carne asada',      image: 'carne-asada.png' },
-        { name: 'Guacamole',        image: 'guacamole.png' },
-        { name: 'Queso',            image: 'queso.png' },
+        { name: 'Tortilla',      color: '#F0E4CC' },
+        { name: 'Carne asada',   color: '#5C3A28' },
+        { name: 'Papas fritas',  color: '#E8C860' },
+        { name: 'Guacamole',     color: '#6AAF50' },
+        { name: 'Queso',         color: '#F5D980' },
       ],
       'Burrito Bowl': [
-        { name: 'Arroz',            image: 'arroz.png' },
-        { name: 'Carne asada',      image: 'carne-asada.png' },
-        { name: 'Frijoles',         image: 'frijoles.png' },
-        { name: 'Lechuga',          image: 'lechuga.png' },
-        { name: 'Jitomate',         image: 'jitomate.png' },
-        { name: 'Guacamole',        image: 'guacamole.png' },
-        { name: 'Crema',            image: 'crema.png' },
+        { name: 'Arroz',         color: '#FAF5E8' },
+        { name: 'Proteína',      color: '#5C3A28' },
+        { name: 'Frijoles',      color: '#2C1810' },
+        { name: 'Lechuga',       color: '#7EC850' },
+        { name: 'Pico de gallo', color: '#E04030' },
+        { name: 'Guacamole',     color: '#6AAF50' },
+        { name: 'Crema',         color: '#FAF8F0' },
       ],
       'Quesadilla': [
-        { name: 'Tortilla de harina', image: 'tortilla-harina.png' },
-        { name: 'Queso Oaxaca',     image: 'queso.png' },
-        { name: 'Pollo asado',      image: 'pollo.png' },
-        { name: 'Crema',            image: 'crema.png' },
-        { name: 'Salsa verde',      image: 'salsa-verde.png' },
+        { name: 'Tortilla',      color: '#F0E4CC' },
+        { name: 'Queso Oaxaca',  color: '#F5E8C0' },
+        { name: 'Relleno',       color: '#C49040' },
+        { name: 'Crema',         color: '#FAF8F0' },
+        { name: 'Salsa verde',   color: '#5B8C3E' },
       ],
       'Torta Ahogada': [
-        { name: 'Pan Birote',       image: 'tortilla-harina.png' },
-        { name: 'Carnitas',         image: 'carnitas.png' },
-        { name: 'Frijoles',         image: 'frijoles.png' },
-        { name: 'Cebolla',          image: 'cebolla.png' },
-        { name: 'Consommé',         image: 'consomme.png' },
+        { name: 'Birote',        color: '#D4A860' },
+        { name: 'Carnitas',      color: '#B07840' },
+        { name: 'Frijoles',      color: '#2C1810' },
+        { name: 'Cebolla',       color: '#F0EDE5' },
+        { name: 'Salsa arbol',   color: '#B01800' },
       ],
       'Elote en Vaso': [
-        { name: 'Elote',            image: 'arroz.png' },
-        { name: 'Mayonesa',         image: 'crema.png' },
-        { name: 'Queso cotija',     image: 'queso.png' },
-        { name: 'Chile en polvo',   image: 'chile.png' },
+        { name: 'Elote',         color: '#F5D547' },
+        { name: 'Mayonesa',      color: '#FAF8F0' },
+        { name: 'Queso cotija',  color: '#F5E8C0' },
+        { name: 'Chile polvo',   color: '#CC3300' },
       ],
       'Nachos': [
-        { name: 'Totopos',          image: 'tortilla-maiz.png' },
-        { name: 'Frijoles',         image: 'frijoles.png' },
-        { name: 'Queso',            image: 'queso.png' },
-        { name: 'Jalapeños',        image: 'chile.png' },
-        { name: 'Crema',            image: 'crema.png' },
-        { name: 'Jitomate',         image: 'jitomate.png' },
+        { name: 'Totopos',       color: '#E8C860' },
+        { name: 'Frijoles',      color: '#2C1810' },
+        { name: 'Queso',         color: '#F5D980' },
+        { name: 'Jalapeños',     color: '#3D8B37' },
+        { name: 'Crema',         color: '#FAF8F0' },
+        { name: 'Pico de gallo', color: '#E04030' },
       ],
       'Horchata': [
-        { name: 'Arroz',            image: 'arroz.png' },
-        { name: 'Leche',            image: 'crema.png' },
+        { name: 'Arroz',         color: '#FAF5E8' },
+        { name: 'Canela',        color: '#8B5E3C' },
+        { name: 'Leche',         color: '#FAF8F0' },
+        { name: 'Azúcar',        color: '#FFFAF0' },
       ],
       'Agua de Jamaica': [
-        { name: 'Flor de jamaica',  image: 'consomme.png' },
+        { name: 'Flor jamaica',  color: '#8B1050' },
+        { name: 'Azúcar',        color: '#FFFAF0' },
+        { name: 'Limón',         color: '#C5D940' },
       ],
       'Limonada': [
-        { name: 'Limón',            image: 'salsa-verde.png' },
-        { name: 'Menta',            image: 'cilantro.png' },
+        { name: 'Limón',         color: '#C5D940' },
+        { name: 'Menta',         color: '#4A7C3F' },
+        { name: 'Azúcar',        color: '#FFFAF0' },
       ],
       'Agua Mineral': [
-        { name: 'Agua mineral',     image: 'consomme.png' },
+        { name: 'Agua mineral',  color: '#B0D8F0' },
+        { name: 'Gas',           color: '#D0E8F5' },
       ],
     };
 
@@ -1965,7 +1984,7 @@
       document.getElementById('detail-desc').textContent = desc;
       document.getElementById('detail-price').textContent = '$' + parseFloat(price).toFixed(2);
 
-      // Build ingredient stack (animation layers)
+      // Build ingredient stack (colored circle layers)
       const stack = document.getElementById('ingredient-stack');
       stack.innerHTML = '';
       const ingredients = ingredientData[name] || [];
@@ -1973,12 +1992,10 @@
       ingredients.forEach((ing, i) => {
         const layer = document.createElement('div');
         layer.className = 'ingredient-layer';
-        layer.style.zIndex = i + 1;
-        // Offset each ingredient vertically so they stack visibly
-        layer.style.top = (i * -8) + 'px';
+        layer.style.zIndex = ingredients.length - i;
         layer.innerHTML = `
-          <img src="${getIngImgPath(ing.image)}" alt="${ing.name}" loading="eager" />
-          <span class="ingredient-label">${ing.name}</span>
+          <div class="ingredient-circle" style="background: ${ing.color};"></div>
+          <span class="ingredient-label-float">${ing.name}</span>
         `;
         stack.appendChild(layer);
       });
@@ -1989,7 +2006,7 @@
       ingredients.forEach((ing, i) => {
         const chip = document.createElement('span');
         chip.className = 'detail-ing-chip';
-        chip.innerHTML = `<img src="${getIngImgPath(ing.image)}" alt="" /> ${ing.name}`;
+        chip.innerHTML = `<span class="detail-ing-chip-dot" style="background:${ing.color};"></span> ${ing.name}`;
         ingList.appendChild(chip);
       });
 
