@@ -1167,7 +1167,7 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      margin: -20px auto 12px;
+      padding: 24px 16px 12px;
       z-index: 2;
       position: relative;
     }
@@ -1179,7 +1179,7 @@
       border-radius: 16px;
       background: transparent;
       border: none;
-      box-shadow: none;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
       display: block;
     }
 
@@ -2001,26 +2001,27 @@
       // Set photo background
       const detailPhoto = document.getElementById('detail-photo-area');
       detailPhoto.className = 'detail-photo-area';
-      if (photoClass) detailPhoto.classList.add(photoClass);
-
-      // Set text content
-      document.getElementById('detail-name').textContent = name;
-      document.getElementById('detail-desc').textContent = desc;
-      document.getElementById('detail-price').textContent = '$' + parseFloat(price).toFixed(2);
 
       // Resolve ingredient data (support both array and {video, ingredients} object)
       const rawData = ingredientData[name];
       const itemHasVideo = rawData && !Array.isArray(rawData) && rawData.video;
       const ingredients = itemHasVideo ? rawData.ingredients : (rawData || []);
 
+      // Set text content
+      document.getElementById('detail-name').textContent = name;
+      document.getElementById('detail-desc').textContent = desc;
+      document.getElementById('detail-price').textContent = '$' + parseFloat(price).toFixed(2);
+
       // Build ingredient stack
       const stack = document.getElementById('ingredient-stack');
       stack.innerHTML = '';
 
       if (itemHasVideo) {
-        // Show video instead of circles
-        stack.style.display = 'none'; // hide circle stack container
-        // Create video wrapper before the stack
+        // Hide the static photo area so the video is visible
+        detailPhoto.style.display = 'none';
+        stack.style.display = 'none';
+
+        // Create or reuse video wrapper
         let videoWrap = document.getElementById('ingredient-video-wrap');
         if (!videoWrap) {
           videoWrap = document.createElement('div');
@@ -2032,14 +2033,18 @@
         videoWrap.innerHTML = `
           <video
             src="${rawData.video}"
+            type="video/mp4"
             autoplay
             muted
             playsinline
             preload="auto"
-            style="pointer-events: none;"
           ></video>
         `;
       } else {
+        // Restore the photo area for non-video items
+        detailPhoto.style.display = '';
+        if (photoClass) detailPhoto.classList.add(photoClass);
+
         // Remove any leftover video wrap
         const existingVideoWrap = document.getElementById('ingredient-video-wrap');
         if (existingVideoWrap) existingVideoWrap.style.display = 'none';
