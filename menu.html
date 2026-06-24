@@ -1162,6 +1162,27 @@
       animation: ingredientDrop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
 
+    /* ── INGREDIENT VIDEO (replaces circles for specific items) ── */
+    .ingredient-video-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: -20px auto 12px;
+      z-index: 2;
+      position: relative;
+    }
+    .ingredient-video-wrap video {
+      max-width: 300px;
+      max-height: 300px;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      display: block;
+    }
+
     @keyframes ingredientDrop {
       0% {
         opacity: 0;
@@ -1860,14 +1881,17 @@
         { name: 'Consommé',      color: '#A0522D' },
         { name: 'Salsa roja',    color: '#CC2200' },
       ],
-      'Taco Al Pastor': [
-        { name: 'Tortilla',      color: '#E8D5A3' },
-        { name: 'Carne al pastor', color: '#D44B20' },
-        { name: 'Cebolla',       color: '#F0EDE5' },
-        { name: 'Cilantro',      color: '#4A7C3F' },
-        { name: 'Piña',          color: '#F5D547' },
-        { name: 'Salsa roja',    color: '#A01010' },
-      ],
+      'Taco Al Pastor': {
+        video: '/images/ingredients/taco-pastor-animation.mp4',
+        ingredients: [
+          { name: 'Tortilla',      color: '#E8D5A3' },
+          { name: 'Carne al pastor', color: '#D44B20' },
+          { name: 'Cebolla',       color: '#F0EDE5' },
+          { name: 'Cilantro',      color: '#4A7C3F' },
+          { name: 'Piña',          color: '#F5D547' },
+          { name: 'Salsa roja',    color: '#A01010' },
+        ],
+      },
       'Taco de Carnitas': [
         { name: 'Tortilla',      color: '#E8D5A3' },
         { name: 'Carnitas',      color: '#B07840' },
@@ -1984,21 +2008,55 @@
       document.getElementById('detail-desc').textContent = desc;
       document.getElementById('detail-price').textContent = '$' + parseFloat(price).toFixed(2);
 
-      // Build ingredient stack (colored circle layers)
+      // Resolve ingredient data (support both array and {video, ingredients} object)
+      const rawData = ingredientData[name];
+      const itemHasVideo = rawData && !Array.isArray(rawData) && rawData.video;
+      const ingredients = itemHasVideo ? rawData.ingredients : (rawData || []);
+
+      // Build ingredient stack
       const stack = document.getElementById('ingredient-stack');
       stack.innerHTML = '';
-      const ingredients = ingredientData[name] || [];
 
-      ingredients.forEach((ing, i) => {
-        const layer = document.createElement('div');
-        layer.className = 'ingredient-layer';
-        layer.style.zIndex = ingredients.length - i;
-        layer.innerHTML = `
-          <div class="ingredient-circle" style="background: ${ing.color};"></div>
-          <span class="ingredient-label-float">${ing.name}</span>
+      if (itemHasVideo) {
+        // Show video instead of circles
+        stack.style.display = 'none'; // hide circle stack container
+        // Create video wrapper before the stack
+        let videoWrap = document.getElementById('ingredient-video-wrap');
+        if (!videoWrap) {
+          videoWrap = document.createElement('div');
+          videoWrap.id = 'ingredient-video-wrap';
+          videoWrap.className = 'ingredient-video-wrap';
+          stack.parentNode.insertBefore(videoWrap, stack);
+        }
+        videoWrap.style.display = 'flex';
+        videoWrap.innerHTML = `
+          <video
+            src="${rawData.video}"
+            autoplay
+            muted
+            playsinline
+            preload="auto"
+            style="pointer-events: none;"
+          ></video>
         `;
-        stack.appendChild(layer);
-      });
+      } else {
+        // Remove any leftover video wrap
+        const existingVideoWrap = document.getElementById('ingredient-video-wrap');
+        if (existingVideoWrap) existingVideoWrap.style.display = 'none';
+        stack.style.display = '';
+
+        // Build colored circle layers
+        ingredients.forEach((ing, i) => {
+          const layer = document.createElement('div');
+          layer.className = 'ingredient-layer';
+          layer.style.zIndex = ingredients.length - i;
+          layer.innerHTML = `
+            <div class="ingredient-circle" style="background: ${ing.color};"></div>
+            <span class="ingredient-label-float">${ing.name}</span>
+          `;
+          stack.appendChild(layer);
+        });
+      }
 
       // Build ingredient chip list
       const ingList = document.getElementById('detail-ing-list');
@@ -2025,16 +2083,18 @@
       detailOverlay.classList.add('open');
       document.body.style.overflow = 'hidden';
 
-      // Trigger staggered ingredient drop animation
+      // Trigger staggered ingredient drop animation (only for circle items)
       requestAnimationFrame(() => {
-        const layers = stack.querySelectorAll('.ingredient-layer');
-        layers.forEach((layer, i) => {
-          setTimeout(() => {
-            layer.classList.add('animate');
-          }, 200 * i + 300); // 300ms initial delay for sheet to slide in
-        });
+        if (!itemHasVideo) {
+          const layers = stack.querySelectorAll('.ingredient-layer');
+          layers.forEach((layer, i) => {
+            setTimeout(() => {
+              layer.classList.add('animate');
+            }, 200 * i + 300);
+          });
+        }
 
-        // Stagger chip appearances too
+        // Stagger chip appearances
         const chips = ingList.querySelectorAll('.detail-ing-chip');
         chips.forEach((chip, i) => {
           setTimeout(() => {
