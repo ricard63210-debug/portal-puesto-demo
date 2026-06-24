@@ -2030,16 +2030,24 @@
           stack.parentNode.insertBefore(videoWrap, stack);
         }
         videoWrap.style.display = 'flex';
-        videoWrap.innerHTML = `
-          <video
-            src="${rawData.video}"
-            type="video/mp4"
-            autoplay
-            muted
-            playsinline
-            preload="auto"
-          ></video>
-        `;
+        videoWrap.innerHTML = '';
+
+        // Create video element programmatically for iOS autoplay
+        const vid = document.createElement('video');
+        vid.src = rawData.video;
+        vid.muted = true;
+        vid.playsInline = true;
+        vid.setAttribute('playsinline', '');
+        vid.setAttribute('webkit-playsinline', '');
+        vid.setAttribute('muted', '');
+        vid.preload = 'auto';
+        vid.loop = false;
+        videoWrap.appendChild(vid);
+
+        // Explicitly trigger play after a short delay (iOS requires this)
+        setTimeout(() => {
+          vid.play().catch(() => {});
+        }, 100);
       } else {
         // Restore the photo area for non-video items
         detailPhoto.style.display = '';
