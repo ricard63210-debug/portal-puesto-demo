@@ -13,13 +13,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --fire: #FF6B35;
-      --gold: #FFD166;
-      --ink:  #0F0F0F;
-      --smoke: #1A1A1A;
-      --ash:  #2A2A2A;
-      --white: #F5F5F5;
-      --muted: #888888;
+      --fire: #E53935;
+      --gold: #FFC107;
+      --ink:  #160B08;
+      --smoke: #23120E;
+      --ash:  #351B15;
+      --white: #FCF6F2;
+      --muted: #A48B82;
       --font-display: 'Barlow Condensed', sans-serif;
       --font-body:    'Inter', sans-serif;
     }
@@ -271,7 +271,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 6px 28px rgba(255,107,53,0.5);
+      box-shadow: 0 6px 28px rgba(229,57,53,0.5);
       z-index: 200;
       transition: transform 0.2s ease, opacity 0.2s ease;
       -webkit-tap-highlight-color: transparent;
@@ -311,7 +311,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: #1C1C1C;
+      background: var(--smoke);
       border-radius: 20px 20px 0 0;
       border-top: 2px solid var(--fire);
       z-index: 301;
@@ -473,7 +473,7 @@
     .checkout-overlay.open { opacity: 1; pointer-events: all; }
 
     .checkout-sheet {
-      background: #181818;
+      background: var(--smoke);
       border-radius: 20px 20px 0 0;
       border-top: 2px solid var(--fire);
       width: 100%;
@@ -535,8 +535,8 @@
     /* Payment summary */
     .pay-stand-badge {
       display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(255,209,102,0.12);
-      border: 1px solid rgba(255,209,102,0.3);
+      background: rgba(255,193,7,0.12);
+      border: 1px solid rgba(255,193,7,0.3);
       border-radius: 8px;
       padding: 6px 12px;
       font-family: var(--font-display);
@@ -699,9 +699,9 @@
       font-size: 20px;
     }
     .pay-method-btn.active {
-      background: rgba(255,107,53,0.12);
+      background: rgba(229,57,53,0.12);
       border-color: var(--fire);
-      box-shadow: 0 4px 12px rgba(255,107,53,0.2);
+      box-shadow: 0 4px 12px rgba(229,57,53,0.2);
     }
     .pay-method-btn[data-method="venmo"].active {
       background: rgba(118, 54, 219, 0.12);

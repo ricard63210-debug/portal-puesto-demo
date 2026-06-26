@@ -16,13 +16,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --fire: #FF6B35;
-      --gold: #FFD166;
-      --ink:  #0F0F0F;
-      --smoke: #1A1A1A;
-      --ash:  #2A2A2A;
-      --white: #F5F5F5;
-      --muted: #888888;
+      --fire: #E53935;
+      --gold: #FFC107;
+      --ink:  #160B08;
+      --smoke: #23120E;
+      --ash:  #351B15;
+      --white: #FCF6F2;
+      --muted: #A48B82;
       --font-display: 'Barlow Condensed', sans-serif;
       --font-body:    'Inter', sans-serif;
     }
@@ -104,7 +104,7 @@
       transform: translateX(-50%);
       width: 520px;
       height: 320px;
-      background: radial-gradient(ellipse at center, rgba(255,107,53,0.18) 0%, transparent 72%);
+      background: radial-gradient(ellipse at center, rgba(229,57,53,0.18) 0%, transparent 72%);
       pointer-events: none;
     }
 
@@ -133,7 +133,7 @@
       overflow: hidden;
       margin: 0 auto 14px;
       animation: float 4s ease-in-out infinite;
-      filter: drop-shadow(0 0 18px rgba(255,107,53,0.55)) drop-shadow(0 4px 12px rgba(255,107,53,0.3));
+      filter: drop-shadow(0 0 18px rgba(229,57,53,0.55)) drop-shadow(0 4px 12px rgba(229,57,53,0.3));
     }
 
     .hero-logo {
@@ -267,13 +267,13 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(255,107,53,0.12);
+      background: rgba(229,57,53,0.12);
       opacity: 0;
       transition: opacity 0.18s ease;
     }
 
     .action-btn:hover::before { opacity: 1; }
-    .action-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(255,107,53,0.18); }
+    .action-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(229,57,53,0.18); }
     .action-btn:active { transform: translateY(0); }
 
     .action-btn.primary {
@@ -434,7 +434,7 @@
 
     .reviews-card {
       background: var(--ash);
-      border: 1px solid rgba(255,209,102,0.25);
+      border: 1px solid rgba(255,193,7,0.25);
       border-radius: 12px;
       padding: 28px 20px;
       text-align: center;
@@ -497,7 +497,7 @@
       width: 100%;
       margin-top: 12px;
       padding: 12px;
-      background: #1A1A1A;
+      background: var(--smoke);
       border: 1px solid rgba(255,255,255,0.12);
       border-radius: 10px;
       color: var(--muted);
@@ -637,7 +637,7 @@
     .social-btn:hover {
       border-color: var(--fire);
       transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(255,107,53,0.15);
+      box-shadow: 0 4px 20px rgba(229,57,53,0.15);
     }
 
     /* ═══════════════════════════════════════════════════════
@@ -697,7 +697,7 @@
     .zelle-overlay.open { opacity: 1; pointer-events: all; }
 
     .zelle-modal {
-      background: #1A1A1A;
+      background: var(--smoke);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 16px;
       padding: 24px 20px;
@@ -804,7 +804,7 @@
       align-items: center;
       justify-content: center;
       font-size: 26px;
-      box-shadow: 0 4px 20px rgba(255,107,53,0.45);
+      box-shadow: 0 4px 20px rgba(229,57,53,0.45);
       z-index: 900;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       -webkit-tap-highlight-color: transparent;
@@ -812,7 +812,7 @@
 
     .lupe-fab:hover {
       transform: scale(1.08);
-      box-shadow: 0 6px 28px rgba(255,107,53,0.6);
+      box-shadow: 0 6px 28px rgba(229,57,53,0.6);
     }
 
     .lupe-panel {
@@ -822,8 +822,8 @@
       width: calc(100vw - 32px);
       max-width: 380px;
       height: 480px;
-      background: #1C1C1C;
-      border: 1px solid rgba(255,107,53,0.3);
+      background: var(--smoke);
+      border: 1px solid rgba(229,57,53,0.3);
       border-radius: 16px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.6);
       z-index: 901;

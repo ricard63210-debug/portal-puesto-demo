@@ -12,13 +12,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --fire: #FF6B35;
-      --gold: #FFD166;
-      --ink:  #0F0F0F;
-      --smoke: #1A1A1A;
-      --ash:  #2A2A2A;
-      --white: #F5F5F5;
-      --muted: #888888;
+      --fire: #E53935;
+      --gold: #FFC107;
+      --ink:  #160B08;
+      --smoke: #23120E;
+      --ash:  #351B15;
+      --white: #FCF6F2;
+      --muted: #A48B82;
       --green: #4CAF50;
       --blue:  #2196F3;
       --font-display: 'Barlow Condensed', sans-serif;
@@ -53,7 +53,7 @@
 
     .pin-logo {
       font-size: 48px;
-      filter: drop-shadow(0 0 20px rgba(255,107,53,0.5));
+      filter: drop-shadow(0 0 20px rgba(229,57,53,0.5));
     }
 
     .pin-title {
@@ -321,8 +321,8 @@
       border-radius: 999px;
     }
 
-    .status-badge.pending  { background: rgba(255,209,102,0.15); color: var(--gold);  }
-    .status-badge.progress { background: rgba(255,107,53,0.15);  color: var(--fire);  }
+    .status-badge.pending  { background: rgba(255,193,7,0.15); color: var(--gold);  }
+    .status-badge.progress { background: rgba(229,57,53,0.15);  color: var(--fire);  }
     .status-badge.done     { background: rgba(76,175,80,0.15);   color: var(--green); }
 
     .order-items {
@@ -387,7 +387,7 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      border: 2px solid rgba(255,107,53,0.2);
+      border: 2px solid rgba(229,57,53,0.2);
       border-top-color: var(--fire);
       animation: spin 1.5s linear infinite;
     }
@@ -445,7 +445,7 @@
     .settings-overlay.open { opacity: 1; pointer-events: all; }
 
     .settings-panel {
-      background: #1A1A1A;
+      background: var(--smoke);
       border-radius: 20px 20px 0 0;
       border-top: 2px solid rgba(255,255,255,0.08);
       width: 100%;
