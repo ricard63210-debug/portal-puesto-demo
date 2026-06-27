@@ -1845,14 +1845,17 @@
        INGREDIENT DATA (Pure CSS Colored Circles)
     ═══════════════════════════════════════════════════════ */
     const ingredientData = {
-      'Taco de Birria': [
-        { name: 'Tortilla',      color: '#E8D5A3' },
-        { name: 'Birria',        color: '#8B2500' },
-        { name: 'Cebolla',       color: '#F0EDE5' },
-        { name: 'Cilantro',      color: '#4A7C3F' },
-        { name: 'Consommé',      color: '#A0522D' },
-        { name: 'Salsa roja',    color: '#CC2200' },
-      ],
+      'Taco de Birria': {
+        video: '/images/ingredients/taco-birria-animation.mp4',
+        ingredients: [
+          { name: 'Tortilla',      color: '#E8D5A3' },
+          { name: 'Birria',        color: '#8B2500' },
+          { name: 'Cebolla',       color: '#F0EDE5' },
+          { name: 'Cilantro',      color: '#4A7C3F' },
+          { name: 'Consommé',      color: '#A0522D' },
+          { name: 'Salsa roja',    color: '#CC2200' },
+        ],
+      },
       'Taco Al Pastor': {
         video: '/images/ingredients/taco-pastor-animation.mp4',
         ingredients: [
@@ -1864,53 +1867,71 @@
           { name: 'Salsa roja',    color: '#A01010' },
         ],
       },
-      'Taco de Carnitas': [
-        { name: 'Tortilla',      color: '#E8D5A3' },
-        { name: 'Carnitas',      color: '#B07840' },
-        { name: 'Cebolla',       color: '#F0EDE5' },
-        { name: 'Cilantro',      color: '#4A7C3F' },
-        { name: 'Salsa verde',   color: '#5B8C3E' },
-      ],
-      'Taco Vegano': [
-        { name: 'Tortilla',      color: '#E8D5A3' },
-        { name: 'Nopales',       color: '#6B8E3A' },
-        { name: 'Frijoles',      color: '#2C1810' },
-        { name: 'Aguacate',      color: '#6AAF50' },
-        { name: 'Chile serrano', color: '#3D8B37' },
-      ],
-      'Burrito Supremo': [
-        { name: 'Tortilla',      color: '#F0E4CC' },
-        { name: 'Carne asada',   color: '#5C3A28' },
-        { name: 'Arroz',         color: '#FAF5E8' },
-        { name: 'Frijoles',      color: '#2C1810' },
-        { name: 'Guacamole',     color: '#6AAF50' },
-        { name: 'Crema',         color: '#FAF8F0' },
-        { name: 'Pico de gallo', color: '#E04030' },
-        { name: 'Queso',         color: '#F5D980' },
-      ],
-      'Burrito California': [
-        { name: 'Tortilla',      color: '#F0E4CC' },
-        { name: 'Carne asada',   color: '#5C3A28' },
-        { name: 'Papas fritas',  color: '#E8C860' },
-        { name: 'Guacamole',     color: '#6AAF50' },
-        { name: 'Queso',         color: '#F5D980' },
-      ],
-      'Burrito Bowl': [
-        { name: 'Arroz',         color: '#FAF5E8' },
-        { name: 'Proteína',      color: '#5C3A28' },
-        { name: 'Frijoles',      color: '#2C1810' },
-        { name: 'Lechuga',       color: '#7EC850' },
-        { name: 'Pico de gallo', color: '#E04030' },
-        { name: 'Guacamole',     color: '#6AAF50' },
-        { name: 'Crema',         color: '#FAF8F0' },
-      ],
-      'Quesadilla': [
-        { name: 'Tortilla',      color: '#F0E4CC' },
-        { name: 'Queso Oaxaca',  color: '#F5E8C0' },
-        { name: 'Relleno',       color: '#C49040' },
-        { name: 'Crema',         color: '#FAF8F0' },
-        { name: 'Salsa verde',   color: '#5B8C3E' },
-      ],
+      'Taco de Carnitas': {
+        video: '/images/ingredients/taco-carnitas-animation.mp4',
+        ingredients: [
+          { name: 'Tortilla',      color: '#E8D5A3' },
+          { name: 'Carnitas',      color: '#B07840' },
+          { name: 'Cebolla',       color: '#F0EDE5' },
+          { name: 'Cilantro',      color: '#4A7C3F' },
+          { name: 'Salsa verde',   color: '#5B8C3E' },
+        ],
+      },
+      'Taco Vegano': {
+        video: '/images/ingredients/taco-vegano-animation.mp4',
+        ingredients: [
+          { name: 'Tortilla',      color: '#E8D5A3' },
+          { name: 'Nopales',       color: '#6B8E3A' },
+          { name: 'Frijoles',      color: '#2C1810' },
+          { name: 'Aguacate',      color: '#6AAF50' },
+          { name: 'Chile serrano', color: '#3D8B37' },
+        ],
+      },
+      'Burrito Supremo': {
+        video: '/images/ingredients/burrito-supremo-animation.mp4',
+        ingredients: [
+          { name: 'Tortilla',      color: '#F0E4CC' },
+          { name: 'Carne asada',   color: '#5C3A28' },
+          { name: 'Arroz',         color: '#FAF5E8' },
+          { name: 'Frijoles',      color: '#2C1810' },
+          { name: 'Guacamole',     color: '#6AAF50' },
+          { name: 'Crema',         color: '#FAF8F0' },
+          { name: 'Pico de gallo', color: '#E04030' },
+          { name: 'Queso',         color: '#F5D980' },
+        ],
+      },
+      'Burrito California': {
+        video: '/images/ingredients/burrito-california-animation.mp4',
+        ingredients: [
+          { name: 'Tortilla',      color: '#F0E4CC' },
+          { name: 'Carne asada',   color: '#5C3A28' },
+          { name: 'Papas fritas',  color: '#E8C860' },
+          { name: 'Guacamole',     color: '#6AAF50' },
+          { name: 'Queso',         color: '#F5D980' },
+        ],
+      },
+      'Burrito Bowl': {
+        video: '/images/ingredients/burrito-bowl-animation.mp4',
+        ingredients: [
+          { name: 'Arroz',         color: '#FAF5E8' },
+          { name: 'Proteína',      color: '#5C3A28' },
+          { name: 'Frijoles',      color: '#2C1810' },
+          { name: 'Lechuga',       color: '#7EC850' },
+          { name: 'Pico de gallo', color: '#E04030' },
+          { name: 'Guacamole',     color: '#6AAF50' },
+          { name: 'Crema',         color: '#FAF8F0' },
+        ],
+      },
+      'Quesadilla': {
+        video: '/images/ingredients/quesadilla-animation.mp4',
+        ingredients: [
+          { name: 'Tortilla',      color: '#F0E4CC' },
+          { name: 'Queso Oaxaca',  color: '#F5E8C0' },
+          { name: 'Relleno',       color: '#C49040' },
+          { name: 'Crema',         color: '#FAF8F0' },
+          { name: 'Salsa verde',   color: '#5B8C3E' },
+        ],
+      },
       'Torta Ahogada': [
         { name: 'Birote',        color: '#D4A860' },
         { name: 'Carnitas',      color: '#B07840' },
@@ -2004,23 +2025,81 @@
         videoWrap.style.display = 'flex';
         videoWrap.innerHTML = '';
         
-        // Create video element programmatically for iOS autoplay
-        const vid = document.createElement('video');
-        vid.src = rawData.video;
-        vid.muted = true;
-        vid.autoplay = true;
-        vid.playsInline = true;
-        vid.setAttribute('playsinline', '');
-        vid.setAttribute('webkit-playsinline', '');
-        vid.setAttribute('muted', '');
-        vid.setAttribute('autoplay', '');
-        vid.preload = 'auto';
-        vid.loop = false;
-        
-        videoWrap.appendChild(vid);
-        
-        // Play synchronously within the click handler to satisfy iOS gesture policy
-        vid.play().catch(() => {});
+        const isYouTube = rawData.video.includes('youtube.com') || rawData.video.includes('youtu.be');
+        if (isYouTube) {
+          let videoId = '';
+          if (rawData.video.includes('youtu.be/')) {
+            const parts = rawData.video.split('youtu.be/');
+            if (parts.length > 1) {
+              videoId = parts[1].split('?')[0].split('&')[0];
+            }
+          } else if (rawData.video.includes('v=')) {
+            const parts = rawData.video.split('v=');
+            if (parts.length > 1) {
+              videoId = parts[1].split('&')[0];
+            }
+          } else if (rawData.video.includes('embed/')) {
+            const parts = rawData.video.split('embed/');
+            if (parts.length > 1) {
+              videoId = parts[1].split('?')[0].split('&')[0];
+            }
+          }
+
+          if (videoId) {
+            // Create a custom crop container for YouTube to hide title/logo/branding
+            const cropContainer = document.createElement('div');
+            cropContainer.className = 'youtube-crop-container';
+            cropContainer.style.width = '100%';
+            cropContainer.style.maxWidth = '300px';
+            cropContainer.style.aspectRatio = '16/9';
+            cropContainer.style.borderRadius = '16px';
+            cropContainer.style.overflow = 'hidden';
+            cropContainer.style.position = 'relative';
+            cropContainer.style.boxShadow = '0 8px 32px rgba(0,0,0,0.4)';
+            
+            const iframe = document.createElement('iframe');
+            // controls=0: hide controls
+            // rel=0: hide related videos at the end
+            // iv_load_policy=3: hide annotations
+            // fs=0: disable fullscreen button
+            // modestbranding=1: hide modest YouTube branding
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&loop=1&playlist=${videoId}&controls=0&rel=0&iv_load_policy=3&fs=0&modestbranding=1`;
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+            iframe.allowFullscreen = true;
+            iframe.style.position = 'absolute';
+            iframe.style.top = '-14%'; // crop 14% from the top (hides title bar)
+            iframe.style.left = '-12%'; // crop 12% from the left
+            iframe.style.width = '124%'; // scale width to fill cropped area
+            iframe.style.height = '128%'; // scale height to fill cropped area (hides watermark/progress bar)
+            iframe.style.border = 'none';
+            iframe.style.pointerEvents = 'none'; // prevent hover triggers
+            
+            cropContainer.appendChild(iframe);
+            videoWrap.appendChild(cropContainer);
+          } else {
+            videoWrap.style.display = 'none';
+            detailPhoto.style.display = '';
+            if (photoClass) detailPhoto.classList.add(photoClass);
+          }
+        } else {
+          // Create video element programmatically for iOS autoplay
+          const vid = document.createElement('video');
+          vid.src = rawData.video;
+          vid.muted = true;
+          vid.autoplay = true;
+          vid.playsInline = true;
+          vid.setAttribute('playsinline', '');
+          vid.setAttribute('webkit-playsinline', '');
+          vid.setAttribute('muted', '');
+          vid.setAttribute('autoplay', '');
+          vid.preload = 'auto';
+          vid.loop = false;
+          
+          videoWrap.appendChild(vid);
+          
+          // Play synchronously within the click handler to satisfy iOS gesture policy
+          vid.play().catch(() => {});
+        }
       } else {
         // Restore the photo area for non-video items
         detailPhoto.style.display = '';
@@ -2094,6 +2173,12 @@
       detailOverlay.classList.remove('open');
       document.body.style.overflow = '';
       currentDetailItem = null;
+      // Stop and clear any videos/iframes playing in the background
+      const videoWrap = document.getElementById('ingredient-video-wrap');
+      if (videoWrap) {
+        videoWrap.innerHTML = '';
+        videoWrap.style.display = 'none';
+      }
     }
 
     detailClose.addEventListener('click', closeItemDetail);
