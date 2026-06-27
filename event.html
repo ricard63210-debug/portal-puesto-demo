@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Next Event — El Rincón de Lupe. Check our location and schedule for upcoming events." />
+  <meta name="theme-color" content="#FF6B35" />
+  <title>Next Event · El Rincón de Lupe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --fire: #E53935;
+      --gold: #FFC107;
+      --ink:  #160B08;
+      --smoke: #23120E;
+      --ash:  #351B15;
+      --white: #FCF6F2;
+      --muted: #A48B82;
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body:    'Inter', sans-serif;
+    }
+
+    body {
+      background: var(--ink);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 60px;
+    }
+
+    /* ── HEADER ──────────────────────────────────────────── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--smoke);
+      border-bottom: 2px solid var(--fire);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--fire);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      transition: opacity 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .back-btn:hover { opacity: 0.75; }
+    .back-arrow { font-size: 18px; line-height: 1; }
+
+    .header-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 22px;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
+    }
+    .header-title span { color: var(--fire); }
+
+    /* ── CONTENT ─────────────────────────────────────────── */
+    main {
+      padding: 24px 20px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .event-card {
+      background: var(--smoke);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 24px 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      margin-top: 10px;
+    }
+
+    .event-badge {
+      display: inline-block;
+      background: var(--fire);
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border-radius: 2px;
+      padding: 3px 10px;
+      margin-bottom: 16px;
+    }
+
+    .event-title {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 28px;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .event-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .loc-row {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .loc-row:last-of-type { border-bottom: none; }
+
+    .loc-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      line-height: 1;
+    }
+
+    .loc-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.5;
+    }
+    .loc-text small {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 400;
+      margin-top: 3px;
+    }
+
+    .maps-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 24px;
+      padding: 14px;
+      background: transparent;
+      border: 2px solid var(--fire);
+      border-radius: 10px;
+      color: var(--fire);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .maps-btn:hover {
+      background: var(--fire);
+      color: var(--ink);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="back-btn">
+      <span class="back-arrow">←</span> Back
+    </a>
+    <h1 class="header-title">Next <span>Event</span></h1>
+  </header>
+
+  <main>
+    <div class="event-card">
+      <div class="event-badge">Weekday Pop-Up</div>
+      <h2 class="event-title">Midtown Pop-Up Event</h2>
+      <p class="event-desc">Join us for our weekday pop-up! We'll be serving our authentic street tacos, burritos, and quesadillas directly to the Sacramento Midtown community.</p>
+
+      <div class="loc-row">
+        <div class="loc-icon">📍</div>
+        <div class="loc-text">
+          Midtown Sacramento Example Location
+          <small>1801 L St, Sacramento, CA 95811</small>
+        </div>
+      </div>
+
+      <div class="loc-row">
+        <div class="loc-icon">🕐</div>
+        <div class="loc-text">
+          Monday to Friday
+          <small>5:00 PM – 9:00 PM</small>
+        </div>
+      </div>
+
+      <div class="loc-row">
+        <div class="loc-icon">🚗</div>
+        <div class="loc-text">Street parking and public garage nearby</div>
+      </div>
+
+      <a id="btn-event-maps" class="maps-btn" href="https://maps.google.com/?q=1801+L+St,+Sacramento,+CA+95811" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="display: inline-block; vertical-align: middle;"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg> Open in Google Maps
+      </a>
+    </div>
+  </main>
+
+</body>
+</html>
