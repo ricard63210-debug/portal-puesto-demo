@@ -123,8 +123,8 @@
     }
 
     .hero-logo-wrap {
-      width: 90px;
-      height: 90px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       background: transparent;
       display: flex;
@@ -138,8 +138,8 @@
 
     .hero-logo {
       display: block;
-      height: 90px;
-      width: 90px;
+      height: 180px;
+      width: 180px;
       object-fit: contain;
       mix-blend-mode: multiply;
       background: transparent;
@@ -592,6 +592,69 @@
       border-color: var(--fire);
     }
 
+    .feedback-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    .feedback-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .feedback-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .feedback-input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 12px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .feedback-input:focus {
+      border-color: var(--fire);
+    }
+
+    .feedback-select {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 12px;
+      outline: none;
+      transition: border-color 0.2s ease;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23A48B82'%3E%3Cpath d='M8 10L3 5h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 12px;
+    }
+
+    .feedback-select:focus {
+      border-color: var(--fire);
+    }
+
     .feedback-submit {
       position: relative;
       overflow: hidden;
@@ -1033,10 +1096,7 @@
       <div class="led"></div>
     </div>
 
-    <div class="status-pill" role="status" aria-live="polite">
-      <div class="status-dot"></div>
-      Open now · Closes at 9 PM
-    </div>
+    <!-- status pill removed -->
   </section>
 
   <div class="divider"></div>
@@ -1166,11 +1226,53 @@
   ══════════════════════════════════════════ -->
   <section id="feedback-section" aria-labelledby="feedback-label">
     <div class="feedback-card">
-      <h3 id="feedback-label">💬 Tell Us What Happened</h3>
+      <h3 id="feedback-label">💬 Report an Issue / Reportar Queja</h3>
       <p>We're sorry to hear that. Your feedback helps us do better — Lupe reads every message personally.</p>
-      <textarea id="feedback-text" class="feedback-textarea" placeholder="Describe what happened..." aria-label="Feedback message"></textarea>
-      <button id="feedback-submit" class="feedback-submit" type="button">Send Feedback →</button>
-      <p class="feedback-thanks" id="feedback-thanks">✅ ¡Gracias! We got your message and will make it right.</p>
+      
+      <form id="feedback-form" style="margin-top: 16px;">
+        <div class="feedback-form-group">
+          <label class="feedback-label" for="feedback-place">Location / Lugar</label>
+          <select id="feedback-place" class="feedback-select" required>
+            <option value="" disabled selected>Select location...</option>
+            <option value="Farmer's Market (Sacramento)">Farmer's Market (Sacramento, Sat-Sun)</option>
+            <option value="Elk Grove Pop-up (Monday)">Elk Grove Pop-up (Monday)</option>
+            <option value="Davis Market Night (Tuesday)">Davis Market Night (Tuesday)</option>
+            <option value="Roseville Food Trucks (Wednesday)">Roseville Food Trucks (Wednesday)</option>
+            <option value="Folsom Historic Pop-up (Thursday)">Folsom Historic Pop-up (Thursday)</option>
+            <option value="West Sacramento Dinner (Friday)">West Sacramento Dinner (Friday)</option>
+            <option value="Catering / Other">Other / Catering Event</option>
+          </select>
+        </div>
+
+        <div class="feedback-form-row">
+          <div class="feedback-form-group">
+            <label class="feedback-label" for="feedback-stand">Stand / Truck #</label>
+            <input type="text" id="feedback-stand" class="feedback-input" placeholder="e.g. Stall #14" required />
+          </div>
+          <div class="feedback-form-group">
+            <label class="feedback-label" for="feedback-time">Time / Hora</label>
+            <input type="time" id="feedback-time" class="feedback-input" required />
+          </div>
+        </div>
+
+        <div class="feedback-form-group">
+          <label class="feedback-label" for="feedback-date">Date / Fecha</label>
+          <input type="date" id="feedback-date" class="feedback-input" required />
+        </div>
+
+        <div class="feedback-form-group">
+          <label class="feedback-label" for="feedback-text">Issue Description / Qué sucedió</label>
+          <textarea id="feedback-text" class="feedback-textarea" placeholder="Describe the issue..." aria-label="Feedback message" required></textarea>
+        </div>
+
+        <div class="feedback-form-group">
+          <label class="feedback-label" for="feedback-contact">Your Contact (Optional) / Contacto</label>
+          <input type="text" id="feedback-contact" class="feedback-input" placeholder="Phone or Email" />
+        </div>
+
+        <button id="feedback-submit" class="feedback-submit" type="button" style="margin-top: 10px;">Send Feedback →</button>
+      </form>
+      <p class="feedback-thanks" id="feedback-thanks">✅ ¡Gracias! We got your report and will contact you to make it right.</p>
     </div>
   </section>
 
@@ -1323,9 +1425,26 @@
     });
 
     document.getElementById('feedback-submit').addEventListener('click', function() {
+      const place = document.getElementById('feedback-place').value;
+      const stand = document.getElementById('feedback-stand').value.trim();
+      const time = document.getElementById('feedback-time').value;
+      const date = document.getElementById('feedback-date').value;
       const text = document.getElementById('feedback-text').value.trim();
-      if (!text) return;
+      
+      if (!place || !stand || !time || !date || !text) {
+        alert('Please fill out all required fields / Por favor complete todos los campos requeridos.');
+        return;
+      }
+      
+      document.getElementById('feedback-place').disabled = true;
+      document.getElementById('feedback-stand').disabled = true;
+      document.getElementById('feedback-time').disabled = true;
+      document.getElementById('feedback-date').disabled = true;
       document.getElementById('feedback-text').disabled = true;
+      
+      const contact = document.getElementById('feedback-contact');
+      if (contact) contact.disabled = true;
+      
       this.disabled = true;
       document.getElementById('feedback-thanks').style.display = 'block';
       this.style.display = 'none';
