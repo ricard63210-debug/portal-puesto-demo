@@ -2562,7 +2562,7 @@
       lupeSend.disabled = true;
       const typingEl = appendMsg('typing', 'Lupe is typing...');
       try {
-        const res = await fetch('https://maya-cantina-portal.vercel.app/api/chat', {
+        const res = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ messages: lupeMessages })
