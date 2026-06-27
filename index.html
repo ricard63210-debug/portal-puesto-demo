@@ -1453,11 +1453,11 @@
     // ═══════════════════════════════════════════════════════
     // LUPE CHAT
     // ═══════════════════════════════════════════════════════
-    const LUPE_SYSTEM = `You are Lupe, the virtual assistant for El Rincón de Lupe, a street food vendor in Sacramento. You speak in a warm, funny mix of Spanish and English (Spanglish). You know the full menu: Tacos (Birria $3.50, Al Pastor $3.00, Carnitas $3.00, Vegano $2.50), Burritos (Supremo $9.00, California $8.50, Bowl $8.00), Antojitos (Quesadilla $6.00, Torta Ahogada $8.00, Elote en Vaso $4.00, Nachos $7.00), Bebidas (Horchata $2.50, Jamaica $2.50, Limonada $2.00, Sodas $2.50). Hours: Sat-Sun 8am-4pm, Mon-Fri closed. Location: Farmer's Market, K St & 20th St, Sacramento. Help customers pick what to eat, answer questions, and make them hungry. Keep responses short and fun.`;
-
+    const LUPE_SYSTEM = `You are Lupe, the virtual assistant for El Rincón de Lupe, a street food vendor in Sacramento. You speak in a warm, funny mix of Spanish and English (Spanglish). You speak both English and Spanish (bilingual).`;
     const lupeMessages = [{ role: 'system', content: LUPE_SYSTEM }];
     let lupeOpen = false;
     let lupeTyping = false;
+    let portalContext = '';
 
     const fab      = document.getElementById('lupe-fab');
     const panel    = document.getElementById('lupe-panel');
@@ -1466,11 +1466,95 @@
     const input    = document.getElementById('lupe-input');
     const sendBtn  = document.getElementById('lupe-send');
 
+    async function fetchLupeContext() {
+      if (portalContext) return portalContext;
+      try {
+        const parser = new DOMParser();
+
+        // 1. Fetch menu.html
+        const menuRes = await fetch('/menu');
+        const menuHtml = await menuRes.text();
+        const menuDoc = parser.parseFromString(menuHtml, 'text/html');
+        
+        let menuText = 'MENU ITEMS AND PRICES:\n';
+        menuDoc.querySelectorAll('.menu-section').forEach(sec => {
+          const catTitle = sec.querySelector('.cat-title')?.textContent.trim() || '';
+          if (catTitle) {
+            menuText += `\n[Category: ${catTitle}]\n`;
+          }
+          sec.querySelectorAll('.item-card').forEach(card => {
+            const itemName = card.querySelector('.item-name')?.textContent.trim() || '';
+            const itemDesc = card.querySelector('.item-desc')?.textContent.trim() || '';
+            const itemPrice = card.querySelector('.item-price')?.textContent.trim() || '';
+            if (itemName) {
+              menuText += `- ${itemName} (${itemPrice}): ${itemDesc}\n`;
+            }
+          });
+        });
+
+        // 2. Fetch event.html
+        const eventRes = await fetch('/event');
+        const eventHtml = await eventRes.text();
+        const eventDoc = parser.parseFromString(eventHtml, 'text/html');
+        
+        let eventText = '\nWEEKDAY EVENTS AND POP-UPS:\n';
+        eventDoc.querySelectorAll('.event-card').forEach(card => {
+          const day = card.querySelector('.badge-row .event-badge:not(.city)')?.textContent.trim() || '';
+          const city = card.querySelector('.event-badge.city')?.textContent.trim() || '';
+          const title = card.querySelector('.event-title')?.textContent.trim() || '';
+          const desc = card.querySelector('.event-desc')?.textContent.trim() || '';
+          
+          let location = '';
+          let hours = '';
+          card.querySelectorAll('.loc-row').forEach(row => {
+            const icon = row.querySelector('.loc-icon')?.textContent.trim();
+            const text = row.querySelector('.loc-text')?.textContent.trim().replace(/\s+/g, ' ');
+            if (icon === '📍') location = text;
+            if (icon === '🕐') hours = text;
+          });
+          eventText += `- ${day} (${city}): ${title}. Location: ${location}. Hours: ${hours}. Note: ${desc}\n`;
+        });
+
+        // 3. Find main location and hours
+        let mainLocation = 'Farmer\'s Market (K St & 20th St, Sacramento)';
+        let mainHours = 'Saturday & Sunday 8:00 AM – 4:00 PM';
+        
+        const locCard = document.querySelector('.location-card');
+        if (locCard) {
+          locCard.querySelectorAll('.loc-row').forEach(row => {
+            const icon = row.querySelector('.loc-icon')?.textContent.trim();
+            const text = row.querySelector('.loc-text')?.textContent.trim().replace(/\s+/g, ' ');
+            if (icon === '📍') mainLocation = text;
+            if (icon === '🕐') mainHours = text;
+          });
+        }
+
+        portalContext = `WEEKEND MAIN LOCATION:\n- Location: ${mainLocation}\n- Hours: ${mainHours}\n\n${menuText}\n${eventText}`;
+        return portalContext;
+      } catch (err) {
+        console.error('Error loading Lupe context:', err);
+        return 'Fallback: Location: Farmer\'s Market Sacramento, Sat-Sun 8am-4pm. We serve Tacos, Burritos, Quesadillas, and drinks.';
+      }
+    }
+
+    async function getDynamicSystemPrompt() {
+      const liveData = await fetchLupeContext();
+      return `You are Lupe, the virtual assistant for El Rincón de Lupe, a street food vendor in Sacramento. You speak in a warm, funny mix of Spanish and English (Spanglish). You speak both English and Spanish (bilingual).
+      
+Use the following live portal data to answer questions about our menu, pop-ups, events, location, and hours:
+
+${liveData}
+
+Help customers pick what to eat, answer questions, and make them hungry. Keep responses short, helpful, and fun!`;
+    }
+
     function toggleLupe(open) {
       lupeOpen = open;
       panel.classList.toggle('open', open);
       if (open && msgBox.children.length === 0) {
-        appendMsg('assistant', '¡Hola! I\'m Lupe 🌮 ¿Qué se te antoja hoy? Ask me about our menu, hours, or anything you\'d like to know!');
+        appendMsg('assistant', '¡Hola! I\'m Lupe 🌮 I speak English and Spanish / ¡Hablo inglés y español! ¿Qué se te antoja hoy? Ask me about our menu, hours, or events!');
+        // Pre-fetch context in background
+        fetchLupeContext();
       }
       if (open) setTimeout(() => input.focus(), 200);
     }
@@ -1499,6 +1583,9 @@
       const typingEl = appendMsg('typing', 'Lupe is typing...');
 
       try {
+        const dynamicPrompt = await getDynamicSystemPrompt();
+        lupeMessages[0].content = dynamicPrompt;
+
         const res = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
